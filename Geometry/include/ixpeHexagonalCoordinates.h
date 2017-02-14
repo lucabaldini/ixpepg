@@ -142,10 +142,10 @@ class ixpeAxialCoordinate
   
  private:
 
-  /// The column identifier.
+  /// The q coordinate.
   int m_q;
 
-  /// The row identifier.
+  /// The r coordinate.
   int m_r;
 
 };
@@ -169,10 +169,10 @@ class ixpeFractionalAxialCoordinate
   
  private:
 
-  /// The column identifier.
+  /// The q ccordinate..
   double m_q;
 
-  /// The row identifier.
+  /// The r coordinate.
   double m_r;
 
 };
