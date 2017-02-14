@@ -51,7 +51,7 @@ std::pair<double, double> ixpeHexagonalGrid::pixel2world(int col, int row) const
 
 std::pair<int, int> ixpeHexagonalGrid::world2pixel(double x, double y) const
 {
-  double fq = (x * sqrt(3.) / 3  - y / 3.) / m_hexagonSize;
+  double fq = (x * sqrt(3.) / 3.  - y / 3.) / m_hexagonSize;
   double fr = y * 2. / 3. / m_hexagonSize;
   ixpeAxialCoordinate axial = axialRound(fq, fr);
   ixpeOffsetCoordinate offset = axial2eroffset(axial);
