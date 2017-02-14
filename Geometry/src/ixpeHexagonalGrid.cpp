@@ -20,7 +20,7 @@ with this program; if not, write to the Free Software Foundation Inc.,
 ***********************************************************************/
 
 
-#include <math.h>
+#include<cmath>
 
 #include "ixpeHexagonalGrid.h"
 #include "ixpeHexagonalCoordinates.h"
