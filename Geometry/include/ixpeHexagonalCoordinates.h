@@ -142,10 +142,10 @@ class ixpeAxialCoordinate
   
  private:
 
-  /// The column identifier.
+  /// The q coordinate.
   int m_q;
 
-  /// The row identifier.
+  /// The r coordinate.
   int m_r;
 
 };
@@ -168,6 +168,7 @@ ixpeAxialCoordinate cube2axial(ixpeCubeCoordinate c);
 
 ///
 ixpeCubeCoordinate axial2cube(ixpeAxialCoordinate c);
+
 
 
 #endif //IXPEHEXAGONALCOORDINATES_H
