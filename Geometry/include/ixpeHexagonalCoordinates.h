@@ -177,6 +177,7 @@ class ixpeFractionalAxialCoordinate
 
 };
 
+
 ///
 ixpeOffsetCoordinate cube2eroffset(ixpeCubeCoordinate c);
 
