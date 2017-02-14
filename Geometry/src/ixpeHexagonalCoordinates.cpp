@@ -20,11 +20,13 @@ with this program; if not, write to the Free Software Foundation Inc.,
 ***********************************************************************/
 
 
+#include <cmath>
+
 #include "ixpeHexagonalCoordinates.h"
 
 
-ixpeOffsetCoordinate::ixpeOffsetCoordinate(int col, int row) :
-  m_column(col),
+ixpeOffsetCoordinate::ixpeOffsetCoordinate(int column, int row) :
+  m_column(column),
   m_row(row)
 {}
 
@@ -112,14 +114,16 @@ ixpeAxialCoordinate eroffset2axial(ixpeOffsetCoordinate c)
 }
 
 
-ixpeAxialCoordinate cube2axial(ixpeCubeCoordinate c) {
+ixpeAxialCoordinate cube2axial(ixpeCubeCoordinate c)
+{
   int q = c.x();
   int r = c.z();
   return ixpeAxialCoordinate(q, r);
 }
 
 
-ixpeCubeCoordinate axial2cube(ixpeAxialCoordinate c) {
+ixpeCubeCoordinate axial2cube(ixpeAxialCoordinate c)
+{
   int x = c.q();
   int z = c.r();
   int y = - (x + z);
@@ -127,3 +131,24 @@ ixpeCubeCoordinate axial2cube(ixpeAxialCoordinate c) {
 }
 
 
+ixpeAxialCoordinate axialRound(double fq, double fr)
+{
+  // Calculate the third (redundant) fractional axial coordinate.
+  double fs = -fq - fr;
+  // Now round the numbers to the neirest integers...
+  int q = int(std::round(fq));
+  int r = int(std::round(fr));
+  int s = int(std::round(fs));
+  // ... and keep track of the differences.
+  double dq = std::abs(q - fq);
+  double dr = std::abs(r - fr);
+  double ds = std::abs(s - fs);
+  // Now do some magic.
+  if (dq > dr and dq > ds) {
+    q = -r - s;
+  } else if (dr > ds) {
+    r = -q - s;
+  }
+  // And, finally, convert to the actual axial coordinate.
+  return ixpeAxialCoordinate(q, r);
+}

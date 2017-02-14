@@ -33,7 +33,7 @@ class ixpeOffsetCoordinate
  public:
 
   /// Constructor.
-  ixpeOffsetCoordinate(int col, int row);
+  ixpeOffsetCoordinate(int column, int row);
 
   /// Return the column coordinate.
   int column() const {return m_column;}
@@ -168,6 +168,9 @@ ixpeAxialCoordinate cube2axial(ixpeCubeCoordinate c);
 
 ///
 ixpeCubeCoordinate axial2cube(ixpeAxialCoordinate c);
+
+///
+ixpeAxialCoordinate axialRound(double fq, double fr);
 
 
 

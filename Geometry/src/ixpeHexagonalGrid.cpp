@@ -20,7 +20,7 @@ with this program; if not, write to the Free Software Foundation Inc.,
 ***********************************************************************/
 
 
-#include<cmath>
+#include <cmath>
 
 #include "ixpeHexagonalGrid.h"
 #include "ixpeHexagonalCoordinates.h"
@@ -51,26 +51,9 @@ std::pair<double, double> ixpeHexagonalGrid::pixel2world(int col, int row) const
 
 std::pair<int, int> ixpeHexagonalGrid::world2pixel(double x, double y) const
 {
-  // Convert the physical coordinates to "fractional" axial coordinates.
   double fq = (x * sqrt(3.) / 3  - y / 3.) / m_hexagonSize;
   double fr = y * 2. / 3. / m_hexagonSize;
-  double fs = -fq - fr;
-  // Now round the numbers to the neirest integers...
-  int q = int(std::round(fq));
-  int r = int(std::round(fr));
-  int s = int(std::round(fs));
-  // ... and keep track of the differences.
-  double dq = std::abs(q - fq);
-  double dr = std::abs(r - fr);
-  double ds = std::abs(s - fs);
-  // Now do some magic.
-  if (dq > dr and dq > ds) {
-    q = -r - s;
-  } else if (dr > ds) {
-    r = -q - s;
-  }
-  // And, finally, convert back to offset coordinate.
-  ixpeAxialCoordinate axial(q, r);
+  ixpeAxialCoordinate axial = axialRound(fq, fr);
   ixpeOffsetCoordinate offset = axial2eroffset(axial);
   return std::make_pair(offset.column(), offset.row());
 }
