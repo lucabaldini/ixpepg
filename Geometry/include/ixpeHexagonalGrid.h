@@ -35,7 +35,10 @@ class ixpeHexagonalGrid
   /// Constructor.
   ixpeHexagonalGrid(int numColumns, int numRows, double columnPitch);
 
+  /// Return the physical coordinates of a given pixel.
   std::pair<double, double> pixel2world(int col, int row) const;
+
+  /// Return the address of the neirest pixel, given a physical position.
   std::pair<int, int> world2pixel(double x, double y) const;
     
    
@@ -45,12 +48,9 @@ class ixpeHexagonalGrid
   int m_numRows;
   double m_columnPitch;
   double m_rowPitch;
+  double m_hexagonSize;
 };
 
-
-
-///
-//ixpeOffsetCoordinate cube2eroffset(ixpeCubeCoordinate c);
 
 
 

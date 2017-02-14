@@ -20,7 +20,11 @@ with this program; if not, write to the Free Software Foundation Inc.,
 ***********************************************************************/
 
 
+#include <math.h>
+
 #include "ixpeHexagonalGrid.h"
+#include "ixpeHexagonalCoordinates.h"
+
 
 
 ixpeHexagonalGrid::ixpeHexagonalGrid(int numColumns, int numRows,
@@ -30,8 +34,10 @@ ixpeHexagonalGrid::ixpeHexagonalGrid(int numColumns, int numRows,
   m_columnPitch(columnPitch)
 {
   // The actual number would be sqrt(3.)/2. = 0.8660254037844386 but the
-  // xpol ASIC specification implicitely quote 0.866.
+  // xpol ASIC specifications implicitely quote 0.866. Need to sort this out.
+  // We might want a utils module with all the constants (e.g., SQRT3) defined.
   m_rowPitch = m_columnPitch*0.866;
+  m_hexagonSize = m_columnPitch/0.866;
 }
 
 
@@ -45,5 +51,26 @@ std::pair<double, double> ixpeHexagonalGrid::pixel2world(int col, int row) const
 
 std::pair<int, int> ixpeHexagonalGrid::world2pixel(double x, double y) const
 {
-  return std::make_pair(0, 0);
+  // Convert the physical coordinates to "fractional" axial coordinates.
+  double fq = (x * sqrt(3.) / 3  - y / 3.) / m_hexagonSize;
+  double fr = y * 2. / 3. / m_hexagonSize;
+  double fs = -fq - fr;
+  // Now round the numbers to the neirest integers...
+  int q = int(std::round(fq));
+  int r = int(std::round(fr));
+  int s = int(std::round(fs));
+  // ... and keep track of the differences.
+  double dq = std::abs(q - fq);
+  double dr = std::abs(r - fr);
+  double ds = std::abs(s - fs);
+  // Now do some magic.
+  if (dq > dr and dq > ds) {
+    q = -r - s;
+  } else if (dr > ds) {
+    r = -q - s;
+  }
+  // And, finally, convert back to offset coordinate.
+  ixpeAxialCoordinate axial(q, r);
+  ixpeOffsetCoordinate offset = axial2eroffset(axial);
+  return std::make_pair(offset.column(), offset.row());
 }
