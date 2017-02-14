@@ -81,6 +81,13 @@ std::ostream& ixpeAxialCoordinate::fillStream(std::ostream& os) const
 }
 
 
+ixpeFractionalAxialCoordinate::ixpeFractionalAxialCoordinate(double q,
+							     double r) :
+  m_q(q),
+  m_r(r)
+{}
+
+
 ixpeOffsetCoordinate cube2eroffset(ixpeCubeCoordinate c) {
   int col = c.x() + (c.z() + (c.z() & 1)) / 2;
   int row = c.z();

@@ -151,6 +151,32 @@ class ixpeAxialCoordinate
 };
 
 
+
+class ixpeFractionalAxialCoordinate
+{
+  
+ public:
+
+  /// Constructor.
+  ixpeFractionalAxialCoordinate(double q, double r);
+
+  /// Return the q coordinate.
+  double q() const {return m_q;}
+
+  /// Return the r coordinate.
+  double r() const {return m_r;}
+
+  
+ private:
+
+  /// The column identifier.
+  double m_q;
+
+  /// The row identifier.
+  double m_r;
+
+};
+
 ///
 ixpeOffsetCoordinate cube2eroffset(ixpeCubeCoordinate c);
 
