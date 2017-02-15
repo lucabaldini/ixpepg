@@ -24,14 +24,13 @@ std::string __str__() {
 }
 %enddef
 
-// Actual modules.
+// Actual modules. Why do we have to list everything twice?
 %{
-#include "../include/ixpeGeometryConstant.h"
-#include "../include/ixpeGeometrySvc.h"
-#include "../include/ixpeHexagonalCoordinates.h"
-#include "../include/ixpeHexagonalGrid.h"
+ #include "../include/ixpeGeometryConstant.h"
+ #include "../include/ixpeGeometrySvc.h"
+ #include "../include/ixpeHexagonalCoordinates.h"
+ #include "../include/ixpeHexagonalGrid.h"
 %}
-
 
 
 %include "../include/ixpeGeometryConstant.h"

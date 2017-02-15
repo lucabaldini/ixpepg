@@ -24,7 +24,7 @@ with this program; if not, write to the Free Software Foundation Inc.,
 
 #include "ixpeHexagonalGrid.h"
 #include "ixpeHexagonalCoordinates.h"
-
+#include "ixpeMath.h"
 
 
 ixpeHexagonalGrid::ixpeHexagonalGrid(int numColumns, int numRows,
@@ -33,11 +33,8 @@ ixpeHexagonalGrid::ixpeHexagonalGrid(int numColumns, int numRows,
   m_numRows(numRows),
   m_columnPitch(columnPitch)
 {
-  // The actual number would be sqrt(3.)/2. = 0.8660254037844386 but the
-  // xpol ASIC specifications implicitely quote 0.866. Need to sort this out.
-  // We might want a utils module with all the constants (e.g., SQRT3) defined.
-  m_rowPitch = m_columnPitch*0.866;
-  m_hexagonSize = m_columnPitch/0.866;
+  m_rowPitch = m_columnPitch * ixpeMath::SQRT3 / 2.;
+  m_hexagonSize = m_columnPitch * 2. / ixpeMath::SQRT3;
 }
 
 
@@ -51,7 +48,7 @@ std::pair<double, double> ixpeHexagonalGrid::pixel2world(int col, int row) const
 
 std::pair<int, int> ixpeHexagonalGrid::world2pixel(double x, double y) const
 {
-  double fq = (x * sqrt(3.) / 3.  - y / 3.) / m_hexagonSize;
+  double fq = (x * ixpeMath::SQRT3 / 3.  - y / 3.) / m_hexagonSize;
   double fr = y * 2. / 3. / m_hexagonSize;
   ixpeAxialCoordinate axial = axialRound(fq, fr);
   ixpeOffsetCoordinate offset = axial2eroffset(axial);
