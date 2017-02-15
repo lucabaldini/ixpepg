@@ -26,15 +26,18 @@ with this program; if not, write to the Free Software Foundation Inc.,
 
 extern const double ixpeMath::PI = 3.141592653589793;
 
+
 double ixpeMath::rad2deg(double rad)
 {
   return rad*180./ixpeMath::PI;
 }
 
+
 double ixpeMath::deg2rad(double deg)
 {
   return deg*ixpeMath::PI/180;
 }
+
 
 extern const double ixpeMath::SRQT3= 1.7320508075688772;
 

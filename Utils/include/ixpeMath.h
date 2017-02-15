@@ -23,6 +23,7 @@ with this program; if not, write to the Free Software Foundation Inc.,
 #ifndef IXPEMATH_H
 #define IXPEMATH_H
 
+
 namespace ixpeMath {
   extern const double PI;
 

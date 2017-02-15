@@ -2,6 +2,7 @@ from distutils.core import setup, Extension
 
 import glob
 
+
 _src = glob.glob('../src/*.cpp')
 _src.append('Utils_wrap.cxx')
 _incl = ['../include']
