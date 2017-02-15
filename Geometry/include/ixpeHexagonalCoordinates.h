@@ -173,5 +173,4 @@ ixpeCubeCoordinate axial2cube(ixpeAxialCoordinate c);
 ixpeAxialCoordinate axialRound(double fq, double fr);
 
 
-
 #endif //IXPEHEXAGONALCOORDINATES_H
