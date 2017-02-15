@@ -29,7 +29,6 @@
 *.app
 
 # SWIG files
-*/swig/*.py
 */swig/*_wrap.cxx
 ixpeswpy/*.py
 ixpeswpy/*.pyc
