@@ -1,13 +1,11 @@
-SRCDIR := ../src
-INCDIR := ../include
-PYTHONDIR := /usr/include/python2.7
+
+MODULE_NAME := Geometry
 
 all:
-	swig -python -c++ Geometry.i
-	g++ -fPIC -c -std=gnu++14 $(SRCDIR)/*.cpp Geometry_wrap.cxx \
-	-I$(PYTHONDIR) -I$(INCDIR)
-	c++ -shared *.o -o _Geometry.so
-	cp Geometry.py _Geometry.so $(IXPESWPYMODULES)
+	swig -python -c++ $(MODULE_NAME).i
+	python setup.py build_ext --inplace
+	cp $(MODULE_NAME).py _$(MODULE_NAME).so $(IXPESWPYMODULES)
 
 clean:
-	rm -f *.o *.cxx Geometry.py *.pyc *.so *~
+	rm -f *.o *.cxx $(MODULE_NAME).py *.pyc *.so *~
+	rm -rf build
