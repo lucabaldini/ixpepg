@@ -24,7 +24,8 @@ print('INCL = %s' % INCL)
 module = Extension(
     '_%s' % MODULE_NAME,
     sources=SRC,
-    include_dirs=INCL
+    include_dirs=INCL,
+    extra_compile_args=['-std=gnu++14']
 )
 
 setup(
