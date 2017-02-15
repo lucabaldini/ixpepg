@@ -21,5 +21,6 @@
 
 from ixpeswpy import Utils 
 
+print('PI = %f' % Utils.PI)
+print('SQRT3 = %f' % Utils.SQRT3)
 
-print(dir(Utils))

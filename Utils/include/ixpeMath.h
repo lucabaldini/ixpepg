@@ -30,7 +30,7 @@ namespace ixpeMath {
   double rad2deg(double rad);
   double deg2rad(double deg);
 
-  extern const double SRQT3;
+  extern const double SQRT3;
 }
 
 

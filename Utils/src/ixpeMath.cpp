@@ -39,6 +39,6 @@ double ixpeMath::deg2rad(double deg)
 }
 
 
-extern const double ixpeMath::SRQT3= 1.7320508075688772;
+extern const double ixpeMath::SQRT3= 1.7320508075688772;
 
 
