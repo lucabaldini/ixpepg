@@ -27,6 +27,7 @@ with this program; if not, write to the Free Software Foundation Inc.,
 #include <fstream>
 
 #include "ixpeDataFormat.h"
+#include "ixpeEvent.h"
 
 
 class ixpeBinaryFile
@@ -42,6 +43,9 @@ class ixpeBinaryFile
 
   /// Peek the next 16-bit data word from the input file.
   idf_word_t peek();
+
+  /// Read the next event.
+  ixpeEvent next();
   
 
  private:

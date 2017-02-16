@@ -21,6 +21,7 @@ with this program; if not, write to the Free Software Foundation Inc.,
 
 
 #include <iostream>
+#include <assert.h>
 
 #include "ixpeBinaryFile.h"
 
@@ -62,4 +63,29 @@ idf_word_t ixpeBinaryFile::peek()
   int word = read();
   m_inputStream.seekg(-2, std::ios::cur);
   return word;
+}
+
+
+ixpeEvent ixpeBinaryFile::next()
+{
+  int header = read();
+  if (header != IXPE_EVENT_HEADER) {
+    std::cout << "Event header mismatch (" << std::hex << header << " != "
+	      << IXPE_EVENT_HEADER << ")" << std::endl;
+    exit(1);
+  }
+  int minColumn = read();
+  int maxColumn = read();
+  int minRow = read();
+  int maxRow = read();
+  int bufferId = read();
+  int time1 = read();
+  int time2 = read();
+  int microseconds1 = read();
+  int microseconds2 = read();
+  ixpeEvent event(minColumn, maxColumn, minRow, maxRow);
+  for (int i = 0; i < event.size(); i ++) {
+    read();
+  }
+  return event;
 }

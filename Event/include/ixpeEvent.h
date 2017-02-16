@@ -32,6 +32,10 @@ class ixpeEvent : public ixpeEventWindow
   
  public:
 
+  /// Empty constructor (this is apparently needed by SWIG in order to be
+  /// able to understand ixpeEvent ixpeBinaryFile.next()).
+  ixpeEvent();
+
   /// Basic constructor.
   ixpeEvent(int minColumn, int maxColumn, int minRow, int maxRow);
 

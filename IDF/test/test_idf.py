@@ -25,5 +25,6 @@ from ixpeswpy.IDF import *
 
 input_file = ixpeBinaryFile('/data/work/xpe/xpedaq/data/test_fe_500evts.mdat')
 for i in range(10):
-    print(input_file.read())
+    event = input_file.next()
+    print(event)
 
