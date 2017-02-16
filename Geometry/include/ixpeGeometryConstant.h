@@ -26,6 +26,7 @@ with this program; if not, write to the Free Software Foundation Inc.,
 
 #include <string>
 #include <iostream>
+#include <sstream>
 
 
 class ixpeGeometryConstant
@@ -65,9 +66,6 @@ class ixpeGeometryConstant
   std::string m_units;
   
 };
-
-
-
 
 
 #endif //IXPEGEOMETRYCONSTANT_H

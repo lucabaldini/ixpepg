@@ -1,7 +1,7 @@
 %module IDF
 
-%include "std_sstream.i"
 %include "stdint.i"
+%include "std_string.i"
 
 // Suppress SWIG warnings about the << operators.
 %ignore operator<<;
