@@ -16,7 +16,10 @@ std::string __str__() {
 
 %{
 #include "../include/ixpeEventWindow.h"
+#include "../include/ixpeEvent.h"
 %}
 
 %include "../include/ixpeEventWindow.h"
 %extend ixpeEventWindow {__STR__()};
+
+%include "../include/ixpeEvent.h"
