@@ -1,6 +1,6 @@
 %module Event
 
-%include "std_sstream.i"
+%include "std_string.i"
 
 // Suppress SWIG warnings about the << operators.
 %ignore operator<<;
