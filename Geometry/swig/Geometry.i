@@ -1,6 +1,5 @@
 %module Geometry
 
-// Include the string module.
 %include "std_sstream.i"
 
 // And this is necessary to use std::pairs, see

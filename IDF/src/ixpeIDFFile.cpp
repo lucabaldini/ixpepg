@@ -23,6 +23,22 @@ with this program; if not, write to the Free Software Foundation Inc.,
 #include "ixpeIDFFile.h"
 
 
+///
+extern const int IXPE_FILE_HEADER = 0xEFFF;
+
+///
+extern const int IXPE_BUFFER_HEADER = 0xFFFF;
+
+///
+extern const int IXPE_EVENT_HEADER = 0xDFFF;
+
+
+int byteswap_16(idf_byte_t lsb, idf_byte_t msb)
+{
+  return ( ((msb & 0xFF) << 8) | (lsb & 0xFF) );
+}
+
+
 ixpeIDFFile::ixpeIDFFile(std::string filePath)
 {
   m_inputStream.open(filePath, std::ios::binary);
@@ -31,13 +47,15 @@ ixpeIDFFile::ixpeIDFFile(std::string filePath)
 
 int ixpeIDFFile::readWord()
 {
-  int msb = m_inputStream.get();
-  int lsb = m_inputStream.get();
+  idf_byte_t msb = m_inputStream.get();
+  idf_byte_t lsb = m_inputStream.get();
+  return byteswap_16(lsb, msb);
 }
 
 
 int ixpeIDFFile::peekWord()
 {
-  int msb = m_inputStream.get();
-  int lsb = m_inputStream.get();
+  int word = readWord();
+  m_inputStream.seekg(-2, std::ios::cur);
+  return word;
 }
