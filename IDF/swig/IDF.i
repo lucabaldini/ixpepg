@@ -3,7 +3,9 @@
 %include "std_sstream.i"
 
 %{
-#include "../include/ixpeIDFFile.h"
+#include "../include/ixpeDataFormat.h"
+#include "../include/ixpeBinaryFile.h"
 %}
 
-%include "../include/ixpeIDFFile.h"
+%include "../include/ixpeDataFormat.h"
+%include "../include/ixpeBinaryFile.h"

@@ -20,42 +20,36 @@ with this program; if not, write to the Free Software Foundation Inc.,
 ***********************************************************************/
 
 
-#include "ixpeIDFFile.h"
+#ifndef IXPEBINARYFILE_H
+#define IXPEBINARYFILE_H
 
 
-///
-extern const int IXPE_FILE_HEADER = 0xEFFF;
+#include <fstream>
 
-///
-extern const int IXPE_BUFFER_HEADER = 0xFFFF;
-
-///
-extern const int IXPE_EVENT_HEADER = 0xDFFF;
+#include "ixpeDataFormat.h"
 
 
-int byteswap_16(idf_byte_t lsb, idf_byte_t msb)
+class ixpeBinaryFile
 {
-  return ( ((msb & 0xFF) << 8) | (lsb & 0xFF) );
-}
+  
+ public:
+
+  /// Basic constructor given a file path.
+  ixpeBinaryFile(std::string filePath);
+
+  /// Read the next 16-bit data word from the input file.
+  int readWord();
+
+  /// Peek the next 16-bit data word from the input file.
+  int peekWord();
+  
+
+ private:
+
+  /// The underlying istream object.
+  std::ifstream m_inputStream;
+  
+};
 
 
-ixpeIDFFile::ixpeIDFFile(std::string filePath)
-{
-  m_inputStream.open(filePath, std::ios::binary);
-}
-
-
-int ixpeIDFFile::readWord()
-{
-  idf_byte_t msb = m_inputStream.get();
-  idf_byte_t lsb = m_inputStream.get();
-  return byteswap_16(lsb, msb);
-}
-
-
-int ixpeIDFFile::peekWord()
-{
-  int word = readWord();
-  m_inputStream.seekg(-2, std::ios::cur);
-  return word;
-}
+#endif //IXPEBINARYFILE_H
