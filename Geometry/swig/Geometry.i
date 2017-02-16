@@ -11,7 +11,7 @@ namespace std {
   %template(pairdd) std::pair<double, double>;
 };
 
- // Suppress SWIG warnings about the << operators.
+// Suppress SWIG warnings about the << operators.
 %ignore operator<<;
 
 // Macro to map the c++ << operators into Python __str__()
