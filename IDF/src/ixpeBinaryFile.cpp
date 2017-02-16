@@ -20,26 +20,46 @@ with this program; if not, write to the Free Software Foundation Inc.,
 ***********************************************************************/
 
 
+#include <iostream>
+
 #include "ixpeBinaryFile.h"
 
 
-ixpeBinaryFile::ixpeBinaryFile(std::string filePath)
+ixpeBinaryFile::ixpeBinaryFile(const std::string& filePath)
 {
+  std::cout << "Opening input file " << filePath << "..." << std::endl;
   m_inputStream.open(filePath, std::ios::binary);
+  if (not m_inputStream.good()) {
+    std::cout << "Could not open file." << std::endl;
+    exit(1);
+  }
+  std::cout << "Autodetecting file type... ";
+  int word = peek();
+  std::cout << "0x" << std::hex << word << std::dec << " found";
+  if (word == IXPE_FILE_HEADER) {
+    std::cout << " (new-style)" << std::endl;
+  } else if (word == IXPE_EVENT_HEADER) {
+    std::cout << " (old-style, window mode)" << std::endl;
+  } else if (word <= MAX_ADC_COUNTS) {
+    std::cout << " (old-style, full-frame mode)" << std::endl;
+  } else {
+    std::cout << "Ooops, failing miserably." << std::endl;
+    exit(1);
+  }
 }
 
 
-int ixpeBinaryFile::readWord()
+idf_word_t ixpeBinaryFile::read()
 {
-  idf_byte_t msb = m_inputStream.get();
   idf_byte_t lsb = m_inputStream.get();
+  idf_byte_t msb = m_inputStream.get();
   return byteswap16(lsb, msb);
 }
 
 
-int ixpeBinaryFile::peekWord()
+idf_word_t ixpeBinaryFile::peek()
 {
-  int word = readWord();
+  int word = read();
   m_inputStream.seekg(-2, std::ios::cur);
   return word;
 }

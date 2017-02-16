@@ -19,11 +19,11 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #***********************************************************************
 
-from ixpeswpy.IDF import ixpeBinaryFile, IXPE_BUFFER_HEADER
+
+from ixpeswpy.IDF import *
 
 
 input_file = ixpeBinaryFile('/data/work/xpe/xpedaq/data/test_fe_500evts.mdat')
-assert(input_file.peekWord() == IXPE_BUFFER_HEADER)
 for i in range(10):
-    print(input_file.readWord())
+    print(input_file.read())
 

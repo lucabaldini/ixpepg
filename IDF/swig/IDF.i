@@ -1,6 +1,8 @@
 %module IDF
 
 %include "std_sstream.i"
+%include "stdint.i"
+
 
 %{
 #include "../include/ixpeDataFormat.h"

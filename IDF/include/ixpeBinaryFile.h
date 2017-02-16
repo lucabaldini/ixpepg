@@ -35,13 +35,13 @@ class ixpeBinaryFile
  public:
 
   /// Basic constructor given a file path.
-  ixpeBinaryFile(std::string filePath);
+  ixpeBinaryFile(const std::string& filePath);
 
   /// Read the next 16-bit data word from the input file.
-  int readWord();
+  idf_word_t read();
 
   /// Peek the next 16-bit data word from the input file.
-  int peekWord();
+  idf_word_t peek();
   
 
  private:

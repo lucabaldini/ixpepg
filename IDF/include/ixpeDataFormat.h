@@ -30,23 +30,29 @@ with this program; if not, write to the Free Software Foundation Inc.,
 /// The basic data type in the stream from the FPGA.
 typedef unsigned char idf_byte_t;
 
+/// The basic data type in the stream from the FPGA.
+typedef uint16_t idf_word_t;
+
 /// The data type for the ACD counts in the binary stream.
-typedef uint16_t adc_count_t;
+typedef uint16_t idf_adc_count_t;
 
 /// The data type for th microsecond field.
-typedef uint64_t microsecond_t;
+typedef uint64_t idf_microsecond_t;
 
 /// Byte-swap function to convert big-endian to little-endian.
-int byteswap16(idf_byte_t lsb, idf_byte_t msb);
+idf_word_t byteswap16(idf_byte_t lsb, idf_byte_t msb);
 
 ///
-extern const int IXPE_FILE_HEADER;
+extern const idf_word_t IXPE_FILE_HEADER;
 
 ///
-extern const int IXPE_BUFFER_HEADER;
+extern const idf_word_t IXPE_BUFFER_HEADER;
 
 ///
-extern const int IXPE_EVENT_HEADER;
+extern const idf_word_t IXPE_EVENT_HEADER;
+
+///
+extern const idf_word_t MAX_ADC_COUNTS;
 
 
 #endif //IXPEDATAFORMAT_H
