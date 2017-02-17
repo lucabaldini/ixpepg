@@ -42,7 +42,7 @@ class ixpeEvent : public ixpeEventWindow
 
   double timestamp() const;
 
-    /// Streamer function for overloading the << operator.
+  /// Streamer function for overloading the << operator.
   std::ostream& fillStream(std::ostream& os) const;
 
   /// Overloaded << operator.
@@ -57,10 +57,12 @@ class ixpeEvent : public ixpeEventWindow
   ///
   int m_bufferId;
 
-  ///
+  /// Number of clock ticks from the start of the run (reported by the
+  /// FPGA)
   idf_tick_t m_ticks;
 
-  ///
+  /// Current Unix Timestamp at the start of the run (given by the
+  /// DAQ application)
   idf_second_t m_seconds;
 };
 
