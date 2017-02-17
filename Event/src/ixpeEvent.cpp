@@ -42,7 +42,7 @@ ixpeEvent::ixpeEvent(int minColumn, int maxColumn, int minRow, int maxRow,
 
 double ixpeEvent::timestamp() const
 {
-  return m_seconds + m_ticks * 0.8e-6;
+  return m_seconds + m_ticks * tickToMicroseconds * 1.e-6;
 }
 
 
