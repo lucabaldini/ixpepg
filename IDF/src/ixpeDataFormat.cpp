@@ -23,16 +23,17 @@ with this program; if not, write to the Free Software Foundation Inc.,
 #include "ixpeDataFormat.h"
 
 
-extern const idf_word_t IXPE_FILE_HEADER = 0xdfff;
+const idf_word_t IXPE_FILE_HEADER = 0xdfff;
+
+const idf_word_t IXPE_BUFFER_HEADER = 0xefff;
 
 
-extern const idf_word_t IXPE_BUFFER_HEADER = 0xefff;
+const idf_word_t IXPE_EVENT_HEADER = 0xffff;
 
 
-extern const idf_word_t IXPE_EVENT_HEADER = 0xffff;
+const idf_word_t MAX_ADC_COUNTS = 0x0fff;
 
-
-extern const idf_word_t MAX_ADC_COUNTS = 0x0fff;
+const double tickToMicroseconds = 0.8,
 
 
 idf_word_t byteswap16(idf_byte_t lsb, idf_byte_t msb)
