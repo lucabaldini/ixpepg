@@ -30,7 +30,7 @@ with this program; if not, write to the Free Software Foundation Inc.,
 /// The basic data type in the stream from the FPGA.
 typedef unsigned char idf_byte_t;
 
-/// The basic data type in the stream from the FPGA.
+/// The basic data type in the stream from the FPGA (formed of 2 x idf_byte_t).
 typedef uint16_t idf_word_t;
 
 /// The data type for the ACD counts in the binary stream.
@@ -64,5 +64,8 @@ extern const idf_word_t IXPE_EVENT_HEADER;
 /// @todo This should probably be somewhere else.
 extern const idf_word_t MAX_ADC_COUNTS;
 
+/// Conversion between clock ticks and microseconds
+/// @todo This should probably be somewhere else.
+extern const double tickToMicroseconds;
 
 #endif //IXPEDATAFORMAT_H
