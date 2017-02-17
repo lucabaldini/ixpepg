@@ -31,13 +31,12 @@ ixpeHexagonalGrid::ixpeHexagonalGrid(int numColumns, int numRows,
 				     double columnPitch) :
   m_numColumns(numColumns),
   m_numRows(numRows),
-  m_columnPitch(columnPitch)
-{
-  m_rowPitch = m_columnPitch * ixpeMath::SQRT3 / 2.;
-  m_hexagonSize = m_columnPitch * 2. / ixpeMath::SQRT3;
-  m_columnOffset = 0.5 * (m_numColumns - 1.5) * m_columnPitch;
-  m_rowOffset = 0.5 * (m_numRows - 1) * m_rowPitch;
-}
+  m_columnPitch(columnPitch),
+  m_rowPitch(m_columnPitch * ixpeMath::SQRT3 / 2.),
+  m_columnOffset(0.5 * (m_numColumns - 1.5) * m_columnPitch),
+  m_rowOffset(0.5 * (m_numRows - 1) * m_rowPitch),
+  m_hexagonSize(m_columnPitch * 2. / ixpeMath::SQRT3)
+{}
 
 
 std::pair<double, double> ixpeHexagonalGrid::pixel2world(int col, int row) const
@@ -50,6 +49,8 @@ std::pair<double, double> ixpeHexagonalGrid::pixel2world(int col, int row) const
 
 std::pair<int, int> ixpeHexagonalGrid::world2pixel(double x, double y) const
 {
+  //x += m_columnOffset;
+  //y -= m_rowOffset;
   double fq = (x * ixpeMath::SQRT3 / 3.  - y / 3.) / m_hexagonSize;
   double fr = y * 2. / 3. / m_hexagonSize;
   ixpeAxialCoordinate axial = axialRound(fq, fr);

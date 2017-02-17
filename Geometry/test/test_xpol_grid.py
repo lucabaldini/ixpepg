@@ -29,8 +29,9 @@ def test_xpol_grid():
     """
     """
     grid = ixpeHexagonalGrid(300, 352, 0.05)
-    for (col, row) in TEST_COORDINATES:       
-        print('%s -> %s' % ((col, row), grid.pixel2world(col, row))) 
+    for (col, row) in TEST_COORDINATES:
+        x, y = grid.pixel2world(col, row)
+        print('%s -> %s -> %s' % ((col, row), (x, y), grid.world2pixel(x, y)))
 
 
 if __name__ == '__main__':

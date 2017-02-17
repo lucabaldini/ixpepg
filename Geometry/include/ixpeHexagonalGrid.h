@@ -45,25 +45,25 @@ class ixpeHexagonalGrid
  private:
 
   /// The number of columns in the grid.
-  int m_numColumns;
+  const int m_numColumns;
 
   /// The number of rows in the grid.
-  int m_numRows;
+  const int m_numRows;
 
   /// The horizontal (columns) pitch.
-  double m_columnPitch;
+  const double m_columnPitch;
   
   /// The vertical (row) pitch.
-  double m_rowPitch;
+  const double m_rowPitch;
 
   ///
-  double m_columnOffset;
+  const double m_columnOffset;
 
   ///
-  double m_rowOffset;
+  const double m_rowOffset;
 
   ///
-  double m_hexagonSize;
+  const double m_hexagonSize;
 };
 
 
