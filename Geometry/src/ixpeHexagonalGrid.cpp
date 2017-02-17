@@ -35,13 +35,15 @@ ixpeHexagonalGrid::ixpeHexagonalGrid(int numColumns, int numRows,
 {
   m_rowPitch = m_columnPitch * ixpeMath::SQRT3 / 2.;
   m_hexagonSize = m_columnPitch * 2. / ixpeMath::SQRT3;
+  m_columnOffset = 0.5 * (m_numColumns - 1.5) * m_columnPitch;
+  m_rowOffset = 0.5 * (m_numRows - 1) * m_rowPitch;
 }
 
 
 std::pair<double, double> ixpeHexagonalGrid::pixel2world(int col, int row) const
 {
-  double x = (col - 0.5*(m_numColumns - 1.5 + (row & 1)))*m_columnPitch;
-  double y = (0.5*(m_numRows - 1) - row)*m_rowPitch;
+  double x = (col - 0.5 * (row & 1)) * m_columnPitch - m_columnOffset;
+  double y = m_rowOffset - row * m_rowPitch;
   return std::make_pair(x, y);
 }
 
