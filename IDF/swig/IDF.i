@@ -27,6 +27,7 @@ std::string __str__() {
 %extend ixpeEventWindow {__STR__()};
 
 %include "../../Event/include/ixpeEvent.h"
+%extend ixpeEvent {__STR__()};
 
 %include "../include/ixpeDataFormat.h"
 

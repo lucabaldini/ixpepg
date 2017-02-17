@@ -25,6 +25,7 @@ with this program; if not, write to the Free Software Foundation Inc.,
 
 
 #include "ixpeEventWindow.h"
+#include "ixpeDataFormat.h"
 
 
 class ixpeEvent : public ixpeEventWindow
@@ -32,17 +33,35 @@ class ixpeEvent : public ixpeEventWindow
   
  public:
 
-  /// Empty constructor (this is apparently needed by SWIG in order to be
-  /// able to understand ixpeEvent ixpeBinaryFile.next()).
+  /// Default constructor.
   ixpeEvent();
 
   /// Basic constructor.
-  ixpeEvent(int minColumn, int maxColumn, int minRow, int maxRow);
+  ixpeEvent(int minColumn, int maxColumn, int minRow, int maxRow,
+	    int bufferId, idf_tick_t ticks, idf_second_t seconds);
+
+  double timestamp() const;
+
+    /// Streamer function for overloading the << operator.
+  std::ostream& fillStream(std::ostream& os) const;
+
+  /// Overloaded << operator.
+  friend std::ostream& operator<<(std::ostream& os, const ixpeEvent& e)
+  {
+    return e.fillStream(os);
+  }
 
 
  private:
 
-  ///   
+  ///
+  int m_bufferId;
+
+  ///
+  idf_tick_t m_ticks;
+
+  ///
+  idf_second_t m_seconds;
 };
 
 

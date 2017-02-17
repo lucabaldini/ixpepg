@@ -40,3 +40,14 @@ idf_word_t byteswap16(idf_byte_t lsb, idf_byte_t msb)
   return ( ((msb & 0xff) << 8) | (lsb & 0xff) );
 }
 
+
+idf_tick_t ticks(idf_word_t w1, idf_word_t w2)
+{
+  return w1 + 65534*w2;
+}
+
+
+idf_second_t seconds(idf_word_t w1, idf_word_t w2)
+{
+  return w2 + w1*65536;
+}

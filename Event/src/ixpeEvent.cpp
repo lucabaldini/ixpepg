@@ -24,10 +24,31 @@ with this program; if not, write to the Free Software Foundation Inc.,
 
 
 ixpeEvent::ixpeEvent() :
-  ixpeEventWindow(0, 0, 0, 0)
+  ixpeEventWindow(),
+  m_bufferId(0),
+  m_ticks(0),
+  m_seconds(0)
 {}
 
 
-ixpeEvent::ixpeEvent(int minColumn, int maxColumn, int minRow, int maxRow) :
-  ixpeEventWindow(minColumn, maxColumn, minRow, maxRow)
+ixpeEvent::ixpeEvent(int minColumn, int maxColumn, int minRow, int maxRow,
+		     int bufferId, idf_tick_t ticks, idf_second_t seconds) :
+  ixpeEventWindow(minColumn, maxColumn, minRow, maxRow),
+  m_bufferId(bufferId),
+  m_ticks(ticks),
+  m_seconds(seconds)
 {}
+
+
+double ixpeEvent::timestamp() const
+{
+  return m_seconds + m_ticks * 0.8e-6;
+}
+
+
+std::ostream& ixpeEvent::fillStream(std::ostream& os) const
+{
+  ixpeEventWindow::fillStream(os);
+  os << " buf " << m_bufferId << " @ " << timestamp() << " s";
+  return os;
+}

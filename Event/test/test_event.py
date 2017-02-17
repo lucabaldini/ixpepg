@@ -23,6 +23,6 @@
 from ixpeswpy.Event import *
 
 
-window = ixpeEvent(0, 20, 0, 30)
+window = ixpeEvent()
 print(window)
 

@@ -33,6 +33,9 @@ class ixpeEventWindow
   
  public:
 
+  /// Default constructor.
+  ixpeEventWindow();
+
   /// Basic constructor.
   ixpeEventWindow(int minColumn, int maxColumn, int minRow, int maxRow);
 
@@ -65,7 +68,6 @@ class ixpeEventWindow
   {
     return w.fillStream(os);
   }
-
   
 
  private:

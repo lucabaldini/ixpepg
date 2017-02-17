@@ -23,6 +23,14 @@ with this program; if not, write to the Free Software Foundation Inc.,
 #include "ixpeEventWindow.h"
 
 
+ixpeEventWindow::ixpeEventWindow() :
+  m_minColumn(0),
+  m_maxColumn(0),
+  m_minRow(0),
+  m_maxRow(0)
+{}
+
+
 ixpeEventWindow::ixpeEventWindow(int minColumn, int maxColumn, int minRow,
 				 int maxRow) :
   m_minColumn(minColumn),

@@ -24,6 +24,7 @@ with this program; if not, write to the Free Software Foundation Inc.,
 #include <assert.h>
 
 #include "ixpeBinaryFile.h"
+#include "ixpeDataFormat.h"
 
 
 ixpeBinaryFile::ixpeBinaryFile(const std::string& filePath)
@@ -66,6 +67,9 @@ idf_word_t ixpeBinaryFile::peek()
 }
 
 
+/*! @todo Here we might want to read the equivalent of a pDataBuffer, so that
+  the field alignment is specified once and forever in a single place.
+ */
 ixpeEvent ixpeBinaryFile::next()
 {
   int header = read();
@@ -79,13 +83,14 @@ ixpeEvent ixpeBinaryFile::next()
   int minRow = read();
   int maxRow = read();
   int bufferId = read();
-  int time1 = read();
-  int time2 = read();
-  int microseconds1 = read();
-  int microseconds2 = read();
-  ixpeEvent event(minColumn, maxColumn, minRow, maxRow);
+  int t1 = read();
+  int t2 = read();
+  int s1 = read();
+  int s2 = read();
+  ixpeEvent event(minColumn, maxColumn, minRow, maxRow, bufferId,
+		  ticks(t1, t2), seconds(s1, s2));
   for (int i = 0; i < event.size(); i ++) {
-    read();
+      idf_adc_count_t adc = read();
   }
   return event;
 }
