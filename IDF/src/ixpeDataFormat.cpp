@@ -33,7 +33,7 @@ const idf_word_t IXPE_EVENT_HEADER = 0xffff;
 
 const idf_word_t MAX_ADC_COUNTS = 0x0fff;
 
-const double tickToMicroseconds = 0.8,
+const double tickToMicroseconds = 0.8;
 
 
 idf_word_t byteswap16(idf_byte_t lsb, idf_byte_t msb)
