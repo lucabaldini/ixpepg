@@ -24,8 +24,6 @@ with this program; if not, write to the Free Software Foundation Inc.,
 #define IXPEHEXAGONALGRID_H
 
 
-#include <utility>
-
 #include "ixpeHexagonalCoordinates.h"
 
 
@@ -64,13 +62,13 @@ class ixpeHexagonalGrid
   /// The vertical (row) pitch.
   const double m_rowPitch;
 
-  ///
+  /// The horizontal offset of the center of the grid.
   const double m_columnOffset;
 
-  ///
+  /// The vertical offset of the center of the grid.
   const double m_rowOffset;
 
-  ///
+  /// The size of the hegagons.
   const double m_hexagonSize;
 };
 

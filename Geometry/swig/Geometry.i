@@ -14,15 +14,6 @@ std::string __str__() {
 }
 %enddef
 
-// And this is necessary to use std::pairs, see
-// http://www.swig.org/Doc1.3/Library.html#Library_stl_cpp_library
-// (under std_vector.i, as the std_pair.i magic is apparently not covered).
-%include "std_pair.i"
-namespace std {
-  %template(pairii) std::pair<int, int>;
-  %template(pairdd) std::pair<double, double>;
-};
-
 // Actual modules. Why do we have to list everything twice?
 %{
  #include "../include/ixpeGeometryConstant.h"
