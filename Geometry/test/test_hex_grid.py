@@ -21,20 +21,60 @@
 
 from ixpeswpy.Geometry import *
 
+import numpy
 
+import matplotlib.pyplot as plt
+
+
+GRID = ixpeHexagonalGrid(300, 352, 0.05)
 TEST_COORDINATES = [(0, 0), (0, 1), (1, 0), (0, 351), (299, 0), (299, 351)]
 
 
-def test_xpol_grid():
+def test_coordinates():
     """
     """
-    grid = ixpeHexagonalGrid(300, 352, 0.05)
     for (col, row) in TEST_COORDINATES:
         off1 = ixpeOffsetCoordinate(col, row)
-        cart = grid.pixel2world(off1)
-        off2 = grid.world2pixel(cart)
+        cart = GRID.pixel2world(off1)
+        off2 = GRID.world2pixel(cart)
         print('%s -> %s -> %s' % (off1, cart, off2))
+
+def test_random(n=100000, side=0.1):
+    """
+    """
+    x = numpy.random.uniform(-side, side, n)
+    y = numpy.random.uniform(-side, side, n)
+    xred = []
+    yred = []
+    xblue = []
+    yblue = []
+    xgreen = []
+    ygreen = []
+    xgray = []
+    ygray = []
+    for _x, _y in zip(x, y):
+        _cart = ixpeCartesianCoordinate(_x, _y)
+        _off = GRID.world2pixel(_x, _y)
+        _col, _row = _off.column(), _off.row()
+        if _col % 2 and _row % 2:
+            xred.append(_x)
+            yred.append(_y)
+        elif _col % 2:
+            xblue.append(_x)
+            yblue.append(_y)
+        elif _row % 2:
+            xgreen.append(_x)
+            ygreen.append(_y)
+        else:
+            xgray.append(_x)
+            ygray.append(_y)
+    plt.plot(xred, yred, 'o', color='red')
+    plt.plot(xblue, yblue, 'o', color='blue')
+    plt.plot(xgreen, ygreen, 'o', color='green')
+    plt.plot(xgray, ygray, 'o', color='gray')
+    plt.show()
 
 
 if __name__ == '__main__':
-    test_xpol_grid()
+    test_coordinates()
+    test_random()
