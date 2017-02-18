@@ -39,21 +39,34 @@ ixpeHexagonalGrid::ixpeHexagonalGrid(int numColumns, int numRows,
 {}
 
 
-std::pair<double, double> ixpeHexagonalGrid::pixel2world(int col, int row) const
+ixpeCartesianCoordinate ixpeHexagonalGrid::pixel2world(int col, int row) const
 {
   double x = (col - 0.5 * (row & 1)) * m_columnPitch - m_columnOffset;
   double y = m_rowOffset - row * m_rowPitch;
-  return std::make_pair(x, y);
+  return ixpeCartesianCoordinate(x, y);
 }
 
 
-std::pair<int, int> ixpeHexagonalGrid::world2pixel(double x, double y) const
+ixpeCartesianCoordinate
+ixpeHexagonalGrid::pixel2world(const ixpeOffsetCoordinate& off) const
+{
+  return pixel2world(off.column(), off.row());
+}
+
+
+ixpeOffsetCoordinate ixpeHexagonalGrid::world2pixel(double x, double y) const
 {
   x += m_columnOffset;
   y = m_rowOffset - y;
   double fq = (x * ixpeMath::SQRT3 / 3.  - y / 3.) / m_hexagonSize;
   double fr = y * 2. / 3. / m_hexagonSize;
   ixpeAxialCoordinate axial = axialRound(fq, fr);
-  ixpeOffsetCoordinate offset = axial2eroffset(axial);
-  return std::make_pair(offset.column(), offset.row());
+  return axial2eroffset(axial);
+}
+
+
+ixpeOffsetCoordinate
+ixpeHexagonalGrid::world2pixel(const ixpeCartesianCoordinate& cart) const
+{
+  return world2pixel(cart.x(), cart.y());
 }

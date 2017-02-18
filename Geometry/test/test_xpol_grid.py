@@ -30,13 +30,11 @@ def test_xpol_grid():
     """
     grid = ixpeHexagonalGrid(300, 352, 0.05)
     for (col, row) in TEST_COORDINATES:
-        x, y = grid.pixel2world(col, row)
-        print('%s -> %s -> %s' % ((col, row), (x, y), grid.world2pixel(x, y)))
+        off1 = ixpeOffsetCoordinate(col, row)
+        cart = grid.pixel2world(off1)
+        off2 = grid.world2pixel(cart)
+        print('%s -> %s -> %s' % (off1, cart, off2))
 
 
 if __name__ == '__main__':
     test_xpol_grid()
-    print(ixpeOffsetCoordinate(0, 0))
-    print(ixpeCubeCoordinate(0, 0, 0))
-    print(ixpeAxialCoordinate(0, 0))
-    print(ixpeCartesianCoordinate(2.13, 1.17698))

@@ -36,10 +36,10 @@ class ixpeCartesianCoordinate
   ixpeCartesianCoordinate(double x, double y);
 
   /// Return the x coordinate.
-  int x() const {return m_x;}
+  double x() const {return m_x;}
 
   /// Return the y coordinate.
-  int y() const {return m_y;}
+  double y() const {return m_y;}
 
   /// Streamer function for overloading the << operator.
   std::ostream& fillStream(std::ostream& os) const;

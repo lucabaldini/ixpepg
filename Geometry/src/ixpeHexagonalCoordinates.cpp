@@ -34,8 +34,8 @@ ixpeCartesianCoordinate::ixpeCartesianCoordinate(double x, double y) :
 
 std::ostream& ixpeCartesianCoordinate::fillStream(std::ostream& os) const
 {
-  os << "Cartesian(" << std::fixed << std::setprecision(4) << m_x << ", "
-     << m_y << ")" << std::defaultfloat;
+  os << "Cartesian(" << std::showpos << std::fixed << std::setprecision(4)
+     << m_x << ", " << m_y << ")" << std::defaultfloat << std::noshowpos;
   return os;
 }
 

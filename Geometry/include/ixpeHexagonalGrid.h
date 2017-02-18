@@ -26,6 +26,8 @@ with this program; if not, write to the Free Software Foundation Inc.,
 
 #include <utility>
 
+#include "ixpeHexagonalCoordinates.h"
+
 
 class ixpeHexagonalGrid
 {
@@ -36,10 +38,16 @@ class ixpeHexagonalGrid
   ixpeHexagonalGrid(int numColumns, int numRows, double columnPitch);
 
   /// Return the physical coordinates of a given pixel.
-  std::pair<double, double> pixel2world(int col, int row) const;
+  ixpeCartesianCoordinate pixel2world(int col, int row) const;
+
+  /// Return the physical coordinates of a given pixel.
+  ixpeCartesianCoordinate pixel2world(const ixpeOffsetCoordinate& off) const;
 
   /// Return the address of the neirest pixel, given a physical position.
-  std::pair<int, int> world2pixel(double x, double y) const;
+  ixpeOffsetCoordinate world2pixel(double x, double y) const;
+
+  /// Return the address of the neirest pixel, given a physical position.
+  ixpeOffsetCoordinate world2pixel(const ixpeCartesianCoordinate& cart) const;
     
    
  private:
