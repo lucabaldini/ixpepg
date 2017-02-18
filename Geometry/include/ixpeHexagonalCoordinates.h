@@ -27,6 +27,43 @@ with this program; if not, write to the Free Software Foundation Inc.,
 #include <iostream>
 
 
+class ixpeCartesianCoordinate
+{
+  
+ public:
+
+  /// Constructor.
+  ixpeCartesianCoordinate(double x, double y);
+
+  /// Return the x coordinate.
+  int x() const {return m_x;}
+
+  /// Return the y coordinate.
+  int y() const {return m_y;}
+
+  /// Streamer function for overloading the << operator.
+  std::ostream& fillStream(std::ostream& os) const;
+
+  /// Overloaded << operator.
+  friend std::ostream& operator<<(std::ostream& os,
+				  const ixpeCartesianCoordinate& c)
+  {
+    return c.fillStream(os);
+  }
+
+  
+ private:
+
+  /// The x coordinate
+  double m_x;
+
+  /// The y coordinate.
+  double m_y;
+
+};
+
+
+
 class ixpeOffsetCoordinate
 {
   

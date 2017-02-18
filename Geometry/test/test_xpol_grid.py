@@ -36,3 +36,7 @@ def test_xpol_grid():
 
 if __name__ == '__main__':
     test_xpol_grid()
+    print(ixpeOffsetCoordinate(0, 0))
+    print(ixpeCubeCoordinate(0, 0, 0))
+    print(ixpeAxialCoordinate(0, 0))
+    print(ixpeCartesianCoordinate(2.13, 1.17698))

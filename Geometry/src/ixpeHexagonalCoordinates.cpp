@@ -21,8 +21,23 @@ with this program; if not, write to the Free Software Foundation Inc.,
 
 
 #include <cmath>
+#include <iomanip>
 
 #include "ixpeHexagonalCoordinates.h"
+
+
+ixpeCartesianCoordinate::ixpeCartesianCoordinate(double x, double y) :
+  m_x(x),
+  m_y(y)
+{}
+
+
+std::ostream& ixpeCartesianCoordinate::fillStream(std::ostream& os) const
+{
+  os << "Cartesian(" << std::fixed << std::setprecision(3) << m_x << ", "
+     << m_y << ")" << std::defaultfloat;
+  return os;
+}
 
 
 ixpeOffsetCoordinate::ixpeOffsetCoordinate(int column, int row) :
@@ -39,7 +54,8 @@ bool ixpeOffsetCoordinate::operator==(const ixpeOffsetCoordinate& rhs)
 
 std::ostream& ixpeOffsetCoordinate::fillStream(std::ostream& os) const
 {
-  os << "Offset(" << m_column << ", " << m_row << ")";
+  os << "Offset(" << std::setw(3) << m_column << ", " << std::setw(3)
+     << m_row << ")";
   return os;
 }
 
@@ -59,7 +75,8 @@ bool ixpeCubeCoordinate::operator==(const ixpeCubeCoordinate& rhs)
 
 std::ostream& ixpeCubeCoordinate::fillStream(std::ostream& os) const
 {
-  os << "Cube(" << m_x << ", " << m_y << ", " << m_z << ")";
+  os << "Cube(" << std::setw(3) << m_x << ", " << std::setw(3) << m_y << ", "
+     << std::setw(3) << m_z << ")";
   return os;
 }
 
@@ -78,7 +95,7 @@ bool ixpeAxialCoordinate::operator==(const ixpeAxialCoordinate& rhs)
 
 std::ostream& ixpeAxialCoordinate::fillStream(std::ostream& os) const
 {
-  os << "Axial(" << m_q << ", " << m_r << ")";
+  os << "Axial(" << std::setw(3) << m_q << ", " << std::setw(3) << m_r << ")";
   return os;
 }
 

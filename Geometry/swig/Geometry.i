@@ -38,6 +38,7 @@ namespace std {
 %extend ixpeGeometrySvc {__STR__()};
 
 %include "../include/ixpeHexagonalCoordinates.h"
+%extend ixpeCartesianCoordinate {__STR__()};
 %extend ixpeOffsetCoordinate {__STR__()};
 %extend ixpeCubeCoordinate {__STR__()};
 %extend ixpeAxialCoordinate {__STR__()};
