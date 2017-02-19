@@ -24,7 +24,18 @@ with this program; if not, write to the Free Software Foundation Inc.,
 #define IXPEHEXAGONALGRID_H
 
 
+#include <exception>
+
 #include "ixpeHexagonalCoordinates.h"
+
+
+class coordinate_out_of_grid : public std::exception
+{
+  virtual const char* what() const throw()
+  {
+    return "Coordinate out of grid.";
+  }
+};
 
 
 class ixpeHexagonalGrid
@@ -70,6 +81,13 @@ class ixpeHexagonalGrid
 
   /// The size of the hegagons.
   const double m_hexagonSize;
+
+  /// Return true if the (col, row) pair is inside the grid.
+  bool contains(int col, int row) const;
+  
+  /// Return true if the coordinate is inside the grid.
+  bool contains(const ixpeOffsetCoordinate& off) const;
+
 };
 
 

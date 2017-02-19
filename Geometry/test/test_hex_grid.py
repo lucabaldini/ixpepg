@@ -27,7 +27,8 @@ import matplotlib.pyplot as plt
 
 
 GRID = ixpeHexagonalGrid(300, 352, 0.05)
-TEST_COORDINATES = [(0, 0), (0, 1), (1, 0), (0, 351), (299, 0), (299, 351)]
+TEST_COORDINATES = [(0, 0), (0, 1), (1, 0), (150, 175), (0, 351), (299, 0),
+                    (299, 351)]
 
 
 def test_coordinates():
@@ -38,6 +39,14 @@ def test_coordinates():
         cart = GRID.pixel2world(off1)
         off2 = GRID.world2pixel(cart)
         print('%s -> %s -> %s' % (off1, cart, off2))
+
+def test_exception():
+    """
+    """
+    try:
+        GRID.world2pixel(100., 100.)
+    except Exception as e:
+        print(e)
 
 def test_random(n=100000, side=0.1):
     """
@@ -77,4 +86,5 @@ def test_random(n=100000, side=0.1):
 
 if __name__ == '__main__':
     test_coordinates()
+    test_exception()
     test_random()

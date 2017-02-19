@@ -56,12 +56,16 @@ ixpeHexagonalGrid::pixel2world(const ixpeOffsetCoordinate& off) const
 
 ixpeOffsetCoordinate ixpeHexagonalGrid::world2pixel(double x, double y) const
 {
-  x += m_columnOffset;
+  x = m_columnOffset + x;
   y = m_rowOffset - y;
   double fq = (x * ixpeMath::SQRT3 / 3.  - y / 3.) / m_hexagonSize;
   double fr = y * 2. / 3. / m_hexagonSize;
   ixpeAxialCoordinate axial = axialRound(fq, fr);
-  return axial2eroffset(axial);
+  ixpeOffsetCoordinate offset = axial2eroffset(axial);
+  if (not contains(offset)) {
+    throw coordinate_out_of_grid();
+  }
+  return offset;
 }
 
 
@@ -69,4 +73,16 @@ ixpeOffsetCoordinate
 ixpeHexagonalGrid::world2pixel(const ixpeCartesianCoordinate& cart) const
 {
   return world2pixel(cart.x(), cart.y());
+}
+
+
+bool ixpeHexagonalGrid::contains(int col, int row) const
+{
+  return (col >= 0 && col < m_numColumns && row >= 0 && row < m_numRows);
+}
+
+
+bool ixpeHexagonalGrid::contains(const ixpeOffsetCoordinate& off) const
+{
+  return contains(off.column(), off.row());
 }

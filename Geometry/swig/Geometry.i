@@ -1,6 +1,17 @@
 %module Geometry
 
 %include "std_string.i"
+%include "exception.i"
+
+%exception {
+try {
+$action
+} catch (const std::exception& e) {
+SWIG_exception(SWIG_RuntimeError, e.what());
+} catch (const std::string& e) {
+SWIG_exception(SWIG_RuntimeError, e.c_str());
+}
+}
 
 // Suppress SWIG warnings about the << operators.
 %ignore operator<<;
