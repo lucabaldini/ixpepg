@@ -20,46 +20,45 @@ with this program; if not, write to the Free Software Foundation Inc.,
 ***********************************************************************/
 
 
-#ifndef IXPEGEOMETRYSVC_H
-#define IXPEGEOMETRYSVC_H
-
-#include "ixpeGeometryConstant.h"
-#include <map>
+#include "ixpeGeometry.h"
 
 
-class ixpeGeometrySvc
+ixpeGeometry::ixpeGeometry()
 {
-  
- public:
+  add("XPOL_ASIC_PITCH", 0.050, "mm");
+  add("Z_READOUT_PLANE", 0., "mm");
+  add("Z_GEM_BOTTOM", 1., "mm");
+  add("Z_GEM_TOP", 1.05, "mm");
+  add("GEM_PITCH", 0.050, "mm");
+  add("Z_DRIFT", 11.05, "mm");
+}
 
-  /// Empty constructor.
-  ixpeGeometrySvc();
 
-  /// Actual constructor from a FITS file.
-  //ixpeGeometrySvc(std::string filePath);
+//ixpeGeometry::ixpeGeometry(std::string filePath)
+//{}
 
-  /// Register a geometry constant into the geometry service.
-  void add(std::string name, double value, std::string units);
 
-  /// Return the value of a specific geometry constant givent its name.
-  double value(std::string name);
+void ixpeGeometry::add(std::string name, double value, std::string units)
+{
+  m_map.insert(std::make_pair(name, ixpeGeometryConstant(value, units)));
+}
 
-  /// Streamer function for overloading the << operator.
-  std::ostream& fillStream(std::ostream& os) const;
 
-  /// Overloaded << operator.
-  friend std::ostream& operator<<(std::ostream& os, const ixpeGeometrySvc& svc)
-  {
-    return svc.fillStream(os);
+double ixpeGeometry::value(std::string name)
+{
+  try {
+    return m_map.at(name).value();
+  } catch (const std::out_of_range& exc) {
+    std::cerr << exc.what() << std::endl;
+    exit(1);
   }
-
-  
- private:
-
-  /// The basic underlying map of geometry constants.
-  std::map<std::string, ixpeGeometryConstant> m_map;
-
-};
+}
 
 
-#endif //IXPEGEOMETRYSVC_H
+std::ostream& ixpeGeometry::fillStream(std::ostream& os) const
+{
+  for(auto const &element : m_map) {
+    os << element.first << ": " << element.second << std::endl;
+  }
+  return os;
+}

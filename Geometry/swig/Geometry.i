@@ -28,7 +28,7 @@ std::string __str__() {
 // Actual modules. Why do we have to list everything twice?
 %{
  #include "../include/ixpeGeometryConstant.h"
- #include "../include/ixpeGeometrySvc.h"
+ #include "../include/ixpeGeometry.h"
  #include "../include/ixpeHexagonalCoordinates.h"
  #include "../include/ixpeHexagonalGrid.h"
 %}
@@ -36,8 +36,8 @@ std::string __str__() {
 %include "../include/ixpeGeometryConstant.h"
 %extend ixpeGeometryConstant {__STR__()};
 
-%include "../include/ixpeGeometrySvc.h"
-%extend ixpeGeometrySvc {__STR__()};
+%include "../include/ixpeGeometry.h"
+%extend ixpeGeometry {__STR__()};
 
 %include "../include/ixpeHexagonalCoordinates.h"
 %extend ixpeCartesianCoordinate {__STR__()};
