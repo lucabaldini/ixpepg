@@ -37,8 +37,12 @@ class ixpeEvent : public ixpeEventWindow
   ixpeEvent();
 
   /// Basic constructor.
+  /// It assumed that the input adc_counts vector is ordered in the right way
+  /// i.e. the one implicilty defined by the transformation between index
+  /// and coordinates defined here
   ixpeEvent(int minColumn, int maxColumn, int minRow, int maxRow,
-	    int bufferId, idf_tick_t ticks, idf_second_t seconds);
+	    int bufferId, idf_tick_t ticks, idf_second_t seconds,
+	    const std::vector<idf_adc_count_t>& adc_counts);
 
   double timestamp() const;
 
@@ -64,6 +68,9 @@ class ixpeEvent : public ixpeEventWindow
   /// Current Unix Timestamp at the start of the run (given by the
   /// DAQ application)
   idf_second_t m_seconds;
+  
+  /// Ordered adc counts array
+  std::vector<idf_adc_count_t> m_adc_counts;
 };
 
 
