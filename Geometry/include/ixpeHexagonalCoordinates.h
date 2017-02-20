@@ -26,6 +26,13 @@ with this program; if not, write to the Free Software Foundation Inc.,
 
 #include <iostream>
 
+/* 
+define coordinades types 
+Inspired (copied) by 
+http://www.redblobgames.com/grids/hexagons/codegen/output/lib.cc
+Documented in 
+http://www.redblobgames.com/grids/hexagons/implementation.htm
+*/
 
 class ixpeCartesianCoordinate
 {
@@ -103,23 +110,24 @@ class ixpeOffsetCoordinate
 };
 
 
-
+// Cube coordinate
+// Since cube is just and extension of hex (axial) we use only this one
 class ixpeCubeCoordinate
 {
   
  public:
 
   /// Constructor.
-  ixpeCubeCoordinate(int x, int y, int z);
+  ixpeCubeCoordinate(int q, int r, int s);
 
-  /// Return the x coordinate.
-  int x() const {return m_x;}
+  /// Return the q coordinate.
+  int q() const {return m_q;}
 
-  /// Return the y coordinate.
-  int y() const {return m_y;}
+  /// Return the r coordinate.
+  int r() const {return m_r;}
 
   /// Return the z coordinate.
-  int z() const {return m_z;}
+  int s() const {return m_s;}
 
   /// Overloaded comparison operator.
   bool operator==(const ixpeCubeCoordinate& rhs);
@@ -137,56 +145,16 @@ class ixpeCubeCoordinate
   
  private:
 
-  /// The x coordinate.
-  int m_x;
-
-  /// The y coordinate.
-  int m_y;
-
-  /// The z coordinate/
-  int m_z;
-
-};
-
-
-class ixpeAxialCoordinate
-{
-  
- public:
-
-  /// Constructor.
-  ixpeAxialCoordinate(int q, int r);
-
-  /// Return the q coordinate.
-  int q() const {return m_q;}
-
-  /// Return the r coordinate.
-  int r() const {return m_r;}
-
-  /// Overloaded comparison operator.
-  bool operator==(const ixpeAxialCoordinate& rhs);
-
-  /// Streamer function for overloading the << operator.
-  std::ostream& fillStream(std::ostream& os) const;
-
-  /// Overloaded << operator.
-  friend std::ostream& operator<<(std::ostream& os,
-				  const ixpeAxialCoordinate& c)
-  {
-    return c.fillStream(os);
-  }
-
-  
- private:
-
   /// The q coordinate.
   int m_q;
 
   /// The r coordinate.
   int m_r;
 
-};
+  /// The s coordinate/
+  int m_s;
 
+};
 
 ///
 ixpeOffsetCoordinate cube2eroffset(ixpeCubeCoordinate c);
@@ -195,19 +163,7 @@ ixpeOffsetCoordinate cube2eroffset(ixpeCubeCoordinate c);
 ixpeCubeCoordinate eroffset2cube(ixpeOffsetCoordinate c);
 
 ///
-ixpeOffsetCoordinate axial2eroffset(ixpeAxialCoordinate c);
-
-///
-ixpeAxialCoordinate eroffset2axial(ixpeOffsetCoordinate c);
-
-///
-ixpeAxialCoordinate cube2axial(ixpeCubeCoordinate c);
-
-///
-ixpeCubeCoordinate axial2cube(ixpeAxialCoordinate c);
-
-///
-ixpeAxialCoordinate axialRound(double fq, double fr);
+ixpeCubeCoordinate cubeRound(double fq, double fr, double fs);
 
 
 #endif //IXPEHEXAGONALCOORDINATES_H

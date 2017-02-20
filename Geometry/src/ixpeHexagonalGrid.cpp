@@ -60,8 +60,8 @@ ixpeOffsetCoordinate ixpeHexagonalGrid::world2pixel(double x, double y) const
   y = m_rowOffset - y;
   double fq = (x * ixpeMath::SQRT3 / 3.  - y / 3.) / m_hexagonSize;
   double fr = y * 2. / 3. / m_hexagonSize;
-  ixpeAxialCoordinate axial = axialRound(fq, fr);
-  ixpeOffsetCoordinate offset = axial2eroffset(axial);
+  ixpeCubeCoordinate cube = cubeRound(fq, fr, -fq - fr);
+  ixpeOffsetCoordinate offset = cube2eroffset(cube);
   if (not contains(offset)) {
     throw coordinate_out_of_grid();
   }

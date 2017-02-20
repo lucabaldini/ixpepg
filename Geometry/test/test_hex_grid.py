@@ -77,10 +77,10 @@ def test_random(n=100000, side=0.1):
         else:
             xgray.append(_x)
             ygray.append(_y)
-    plt.plot(xred, yred, 'o', color='red')
-    plt.plot(xblue, yblue, 'o', color='blue')
-    plt.plot(xgreen, ygreen, 'o', color='green')
-    plt.plot(xgray, ygray, 'o', color='gray')
+    plt.plot(xred, yred, '.', color='red')
+    plt.plot(xblue, yblue, '.', color='blue')
+    plt.plot(xgreen, ygreen, '.', color='green')
+    plt.plot(xgray, ygray, '.', color='gray')
     plt.show()
 
 
