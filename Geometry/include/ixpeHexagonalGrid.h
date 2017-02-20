@@ -27,15 +27,19 @@ with this program; if not, write to the Free Software Foundation Inc.,
 #include <exception>
 
 #include "ixpeHexagonalCoordinates.h"
+#include "ixpeXpolAsic.h"
 
 
 class coordinate_out_of_grid : public std::exception
 {
+  
   virtual const char* what() const throw()
   {
     return "Coordinate out of grid.";
   }
+
 };
+
 
 
 class ixpeHexagonalGrid
@@ -91,6 +95,18 @@ class ixpeHexagonalGrid
 };
 
 
+
+class ixpeXpolAsicGrid : public ixpeHexagonalGrid
+{
+
+ public:
+  
+  ixpeXpolAsicGrid() : ixpeHexagonalGrid(ixpeXpolAsic::numColumns(),
+					 ixpeXpolAsic::numRows(),
+					 0.050)
+    {;}
+  
+};
 
 
 #endif //IXPEHEXAGONALGRID_H

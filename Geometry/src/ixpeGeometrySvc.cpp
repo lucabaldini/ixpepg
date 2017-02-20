@@ -24,11 +24,18 @@ with this program; if not, write to the Free Software Foundation Inc.,
 
 
 ixpeGeometrySvc::ixpeGeometrySvc()
-{}
+{
+  add("XPOL_ASIC_PITCH", 0.050, "mm");
+  add("Z_READOUT_PLANE", 0., "mm");
+  add("Z_GEM_BOTTOM", 1., "mm");
+  add("Z_GEM_TOP", 1.05, "mm");
+  add("GEM_PITCH", 0.050, "mm");
+  add("Z_DRIFT", 11.05, "mm");
+}
 
 
-ixpeGeometrySvc::ixpeGeometrySvc(std::string filePath)
-{}
+//ixpeGeometrySvc::ixpeGeometrySvc(std::string filePath)
+//{}
 
 
 void ixpeGeometrySvc::add(std::string name, double value, std::string units)

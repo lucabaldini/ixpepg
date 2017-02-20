@@ -36,7 +36,7 @@ class ixpeGeometrySvc
   ixpeGeometrySvc();
 
   /// Actual constructor from a FITS file.
-  ixpeGeometrySvc(std::string filePath);
+  //ixpeGeometrySvc(std::string filePath);
 
   /// Register a geometry constant into the geometry service.
   void add(std::string name, double value, std::string units);

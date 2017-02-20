@@ -22,9 +22,5 @@
 from ixpeswpy.Geometry import ixpeGeometrySvc
 
 svc = ixpeGeometrySvc()
-svc.add('Z_READOUT_PLANE', 0., 'mm')
-svc.add('Z_GEM_BOTTOM', 1., 'mm')
-svc.add('Z_GEM_TOP', 1.05, 'mm')
-svc.add('Z_DRIFT', 11.05, 'mm')
 print(svc)
 

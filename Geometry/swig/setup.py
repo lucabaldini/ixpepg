@@ -5,7 +5,7 @@ import os
 
 
 MODULE_NAME = 'Geometry'
-DEPS = ['Utils']
+DEPS = ['Utils', 'XPOL']
 
 # Absolute or relative paths?
 BASE_DIR = os.pardir

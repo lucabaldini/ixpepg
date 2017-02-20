@@ -26,7 +26,7 @@ import numpy
 import matplotlib.pyplot as plt
 
 
-GRID = ixpeHexagonalGrid(300, 352, 0.05)
+GRID = ixpeXpolAsicGrid()
 TEST_COORDINATES = [(0, 0), (0, 1), (1, 0), (150, 175), (0, 351), (299, 0),
                     (299, 351)]
 
