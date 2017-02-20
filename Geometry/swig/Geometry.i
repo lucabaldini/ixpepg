@@ -29,6 +29,7 @@ std::string __str__() {
 %{
  #include "../include/ixpeGeometryConstant.h"
  #include "../include/ixpeGeometry.h"
+ #include "../include/ixpeGeometrySvc.h"
  #include "../include/ixpeHexagonalCoordinates.h"
  #include "../include/ixpeHexagonalGrid.h"
 %}
@@ -38,6 +39,8 @@ std::string __str__() {
 
 %include "../include/ixpeGeometry.h"
 %extend ixpeGeometry {__STR__()};
+
+%include "../include/ixpeGeometrySvc.h"
 
 %include "../include/ixpeHexagonalCoordinates.h"
 %extend ixpeCartesianCoordinate {__STR__()};

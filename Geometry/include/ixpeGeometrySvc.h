@@ -20,46 +20,32 @@ with this program; if not, write to the Free Software Foundation Inc.,
 ***********************************************************************/
 
 
-#ifndef IXPEGEOMETRY_H
-#define IXPEGEOMETRY_H
+#ifndef IXPEGEOMETRYSVC_H
+#define IXPEGEOMETRYSVC_H
 
-#include "ixpeGeometryConstant.h"
-#include <map>
+#include "ixpeGeometry.h"
+#include "ixpeHexagonalGrid.h"
 
 
-class ixpeGeometry
+
+class ixpeGeometrySvc
 {
   
  public:
 
-  /// Empty constructor.
-  ixpeGeometry();
-
-  /// Actual constructor from a FITS file.
-  //ixpeGeometry(std::string filePath);
-
-  /// Register a geometry constant into the geometry service.
-  void add(std::string name, double value, std::string units);
-
-  /// Return the value of a specific geometry constant givent its name.
-  double value(const std::string& name);
-
-  /// Streamer function for overloading the << operator.
-  std::ostream& fillStream(std::ostream& os) const;
-
-  /// Overloaded << operator.
-  friend std::ostream& operator<<(std::ostream& os, const ixpeGeometry& geo)
-  {
-    return geo.fillStream(os);
+  /// Return a reference to the application-wide ixpeGeometry object.
+  static const ixpeGeometry& geometry() {
+    static const ixpeGeometry geometry;
+    return geometry;
   }
 
-  
- private:
-
-  /// The basic underlying map of geometry constants.
-  std::map<std::string, ixpeGeometryConstant> m_map;
+  /// Return a reference to the application-wide ixpeXpolAsicGrid object.
+  static const ixpeXpolAsicGrid& xpolAsicGrid() {
+    static const ixpeXpolAsicGrid grid;
+    return grid;
+  }
 
 };
 
 
-#endif //IXPEGEOMETRY_H
+#endif //IXPEGEOMETRYSVC_H

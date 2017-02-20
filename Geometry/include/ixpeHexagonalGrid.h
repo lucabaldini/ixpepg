@@ -103,8 +103,7 @@ class ixpeXpolAsicGrid : public ixpeHexagonalGrid
   
   ixpeXpolAsicGrid() : ixpeHexagonalGrid(ixpeXpolAsic::numColumns(),
 					 ixpeXpolAsic::numRows(),
-					 0.050)
-    {;}
+					 0.050) {;}
   
 };
 

@@ -44,7 +44,7 @@ void ixpeGeometry::add(std::string name, double value, std::string units)
 }
 
 
-double ixpeGeometry::value(std::string name)
+double ixpeGeometry::value(const std::string& name)
 {
   try {
     return m_map.at(name).value();

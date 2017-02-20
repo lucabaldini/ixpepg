@@ -21,6 +21,9 @@
 
 from ixpeswpy.Geometry import *
 
-svc = ixpeGeometry()
-print(svc)
+svc = ixpeGeometrySvc()
+geometry = svc.geometry()
+xpol_grid = svc.xpolAsicGrid()
+print(geometry)
+print(xpol_grid)
 
