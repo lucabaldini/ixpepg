@@ -31,6 +31,8 @@ namespace ixpeMath {
   double deg2rad(double deg);
 
   extern const double SQRT3;
+  // truncated sqrt(3) to match horizontal pitch 50 um with vertical 43.3 um
+  static const double XPOLSQRT3() {return 1.7320;}
 }
 
 
