@@ -32,10 +32,10 @@ ixpeHexagonalGrid::ixpeHexagonalGrid(int numColumns, int numRows,
   m_numColumns(numColumns),
   m_numRows(numRows),
   m_columnPitch(columnPitch),
-  m_rowPitch(m_columnPitch * ixpeMath::XPOLSQRT3() / 2.),
+  m_rowPitch(m_columnPitch * ixpeMath::xpolSqrt3() / 2.),
   m_columnOffset(0.5 * (m_numColumns - 1.5) * m_columnPitch),
   m_rowOffset(0.5 * (m_numRows - 1) * m_rowPitch),
-  m_hexagonSize(m_columnPitch / ixpeMath::XPOLSQRT3())
+  m_hexagonSize(m_columnPitch / ixpeMath::xpolSqrt3())
 {}
 
 
@@ -58,7 +58,7 @@ ixpeOffsetCoordinate ixpeHexagonalGrid::world2pixel(double x, double y) const
 {
   x = m_columnOffset + x;
   y = m_rowOffset - y;
-  double fq = (x * ixpeMath::XPOLSQRT3() / 3.  - y / 3.) / m_hexagonSize;
+  double fq = (x * ixpeMath::xpolSqrt3() / 3.  - y / 3.) / m_hexagonSize;
   double fr = y * 2. / 3. / m_hexagonSize;
   ixpeCubeCoordinate cube = cubeRound(fq, fr, -fq - fr);
   ixpeOffsetCoordinate offset = cube2eroffset(cube);
