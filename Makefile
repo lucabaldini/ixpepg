@@ -1,7 +1,7 @@
 #The executable we want to create
 TARGET := testGeometry
 
-#Target directory
+#Executable output directory
 TARGETDIR := bin
 
 #Package dependencies
@@ -39,17 +39,21 @@ DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.Td
 #Rename the generated temporary dependency file to the real dependency file. We do this in a separate step so that failures during the compilation won’t leave a corrupted dependency file.
 POSTCOMPILE = mv -f $(DEPDIR)/$*.Td $(DEPDIR)/$*.d
 
-#Generate a list of all required source files: each module will add to this list
+#List of all required source files: each module will add to this list
 SOURCES := testMain.cpp
 
-#Include path
+#Include path list (each module will add to this list too)
 INCLUDE_FLAGS :=
 
 #Load source files and include path from the .mk files in the submodules
 include $(patsubst %,%/module.mk,$(MODULES))
 
-#Add all the source directory to vpath
+#Register all the source directories in vpath, so that make will find the .cpp
+#files without need for the full path in the rules
 vpath %.cpp $(sort $(dir $(SOURCES)))
+
+#FIXME: the same trick should work for the .h too, but for some reason it
+#doesn't. I have switched to the -I option instead
 
 #The rule that will be used to compile
 COMPILE = $(CC) $(DEPFLAGS) $(CPPFLAGS) -c $(INCLUDE_FLAGS)
@@ -58,21 +62,18 @@ COMPILE = $(CC) $(DEPFLAGS) $(CPPFLAGS) -c $(INCLUDE_FLAGS)
 ###### DO NOT CHANGE ANYTHING BELOW THIS LINE ######
 
 
-#Create the list of objects by changing the extension of the source files
-OBJECTS := $(SOURCES:.$(SRCEXT)=.$(OBJEXT))
-#Redifine objects to be in the build directory
-OBJECTS := $(addprefix $(BUILDDIR)/,$(notdir $(OBJECTS)))
-
+#Create the list of .o files by changing the extension of the source files
+#and redirecting the path to point to the build directory
+#NOTE: 'notdir' remove everything from the path up to the last /, leaving basically the filename+extension
+OBJECTS := $(addprefix $(BUILDDIR)/,$(notdir $(SOURCES:.$(SRCEXT)=.$(OBJEXT))))
 
 #Default Make
-#default: $(OBJECTS)
-
 all: $(TARGETDIR)/$(TARGET)
 
 #Remake
 remake: cleaner all
 
-#Clean only Object
+#Clean only Objects
 clean:
 	@$(RM) -rf $(BUILDDIR)
 
@@ -80,7 +81,7 @@ clean:
 cleaner: clean
 	@$(RM) -rf $(TARGETDIR)
 
-#Link
+#Link (the dependency after the pipeline are order dependency)
 $(TARGETDIR)/$(TARGET): $(OBJECTS) | $(TARGETDIR)
 	$(CC) $(DEPFLAGS) $(CPPFLAGS) $^ -o $(TARGETDIR)/$(TARGET)
 
