@@ -19,8 +19,8 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #***********************************************************************
 
-from ixpeswpy import Utils 
+from ixpeswpy.Utils import ixpeMath
 
-print('PI = %f' % Utils.PI)
-print('SQRT3 = %f' % Utils.SQRT3)
+print('PI = %f' % ixpeMath.pi())
+print('SQRT3 = %f' % ixpeMath.sqrt3())
 
