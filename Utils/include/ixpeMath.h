@@ -24,14 +24,20 @@ with this program; if not, write to the Free Software Foundation Inc.,
 #define IXPEMATH_H
 
 
-namespace ixpeMath {
-  extern const double PI;
+class ixpeMath {
+  
+  public:
+  
+    static const double pi() {return 3.141592653589793;}
 
-  double rad2deg(double rad);
-  double deg2rad(double deg);
+    static double rad2deg(double rad) {return rad*180./pi();}
+    static double deg2rad(double deg) {return deg*pi()/180.;}
 
-  extern const double SQRT3;
-}
+    static const double sqrt3() {return 1.7320508075688772;}
+    
+    // truncated sqrt(3) to match horizontal pitch 50 um with vertical 43.3 um
+    static const double xpolSqrt3() {return 1.7320;}
+};
 
 
 #endif //IXPEMATH_H

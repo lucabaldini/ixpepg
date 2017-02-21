@@ -34,7 +34,7 @@ ixpeCartesianCoordinate::ixpeCartesianCoordinate(double x, double y) :
 
 std::ostream& ixpeCartesianCoordinate::fillStream(std::ostream& os) const
 {
-  os << "Cartesian(" << std::showpos << std::fixed << std::setprecision(4)
+  os << "Cartesian(" << std::showpos << std::fixed << std::setprecision(6)
      << m_x << ", " << m_y << ")" << std::defaultfloat << std::noshowpos;
   return os;
 }
@@ -60,98 +60,44 @@ std::ostream& ixpeOffsetCoordinate::fillStream(std::ostream& os) const
 }
 
 
-ixpeCubeCoordinate::ixpeCubeCoordinate(int x, int y, int z) :
-  m_x(x),
-  m_y(y),
-  m_z(z)
+ixpeCubeCoordinate::ixpeCubeCoordinate(int q, int r, int s) :
+  m_q(q),
+  m_r(r),
+  m_s(s)
 {}
 
 
 bool ixpeCubeCoordinate::operator==(const ixpeCubeCoordinate& rhs)
 {
-  return (x() == rhs.x()) && (y() == rhs.y()) && (z() == rhs.z());
+  return (q() == rhs.q()) && (r() == rhs.r()) && (s() == rhs.s());
 }
 
 
 std::ostream& ixpeCubeCoordinate::fillStream(std::ostream& os) const
 {
-  os << "Cube(" << std::setw(3) << m_x << ", " << std::setw(3) << m_y << ", "
-     << std::setw(3) << m_z << ")";
-  return os;
-}
-
-
-ixpeAxialCoordinate::ixpeAxialCoordinate(int q, int r) :
-  m_q(q),
-  m_r(r)
-{}
-
-
-bool ixpeAxialCoordinate::operator==(const ixpeAxialCoordinate& rhs)
-{
-  return (q() == rhs.q()) && (r() == rhs.r());
-}
-
-
-std::ostream& ixpeAxialCoordinate::fillStream(std::ostream& os) const
-{
-  os << "Axial(" << std::setw(3) << m_q << ", " << std::setw(3) << m_r << ")";
+  os << "Cube(" << std::setw(3) << m_q << ", " << std::setw(3) << m_r << ", "
+     << std::setw(3) << m_s << ")";
   return os;
 }
 
 
 ixpeOffsetCoordinate cube2eroffset(ixpeCubeCoordinate c) {
-  int col = c.x() + (c.z() + (c.z() & 1)) / 2;
-  int row = c.z();
-  return ixpeOffsetCoordinate(col, row);
-}
-
-
-ixpeCubeCoordinate eroffset2cube(ixpeOffsetCoordinate c) {
-  int x = c.column() - (c.row() + (c.row() & 1)) / 2;
-  int z = c.row();
-  int y = -(x + z); 
-  return ixpeCubeCoordinate(x, y, z);
-}
-
-
-ixpeOffsetCoordinate axial2eroffset(ixpeAxialCoordinate c)
-{
-  int col = c.q() + (c.r() + (c.r() & 1)) / 2;
+  int col = c.q() + int((c.r() + (c.r() & 1)) / 2);
   int row = c.r();
   return ixpeOffsetCoordinate(col, row);
 }
 
 
-ixpeAxialCoordinate eroffset2axial(ixpeOffsetCoordinate c)
-{
-  int q = c.column() - (c.row() + (c.row() & 1)) / 2;
+ixpeCubeCoordinate eroffset2cube(ixpeOffsetCoordinate c) {
+  int q = c.column() - int((c.row() + (c.row() & 1)) / 2);
   int r = c.row();
-  return ixpeAxialCoordinate(q, r);
+  int s = -q -r; 
+  return ixpeCubeCoordinate(q, r, s);
 }
 
 
-ixpeAxialCoordinate cube2axial(ixpeCubeCoordinate c)
+ixpeCubeCoordinate cubeRound(double fq, double fr, double fs)
 {
-  int q = c.x();
-  int r = c.z();
-  return ixpeAxialCoordinate(q, r);
-}
-
-
-ixpeCubeCoordinate axial2cube(ixpeAxialCoordinate c)
-{
-  int x = c.q();
-  int z = c.r();
-  int y = - (x + z);
-  return ixpeCubeCoordinate(x, y, z);
-}
-
-
-ixpeAxialCoordinate axialRound(double fq, double fr)
-{
-  // Calculate the third (redundant) fractional axial coordinate.
-  double fs = -fq - fr;
   // Now round the numbers to the neirest integers...
   int q = int(std::round(fq));
   int r = int(std::round(fr));
@@ -163,9 +109,16 @@ ixpeAxialCoordinate axialRound(double fq, double fr)
   // Now do some magic.
   if (dq > dr and dq > ds) {
     q = -r - s;
-  } else if (dr > ds) {
-    r = -q - s;
+  } else{
+    if (dr > ds)
+      {
+	r = -q - s;
+      }
+    else
+      {
+	s = -q - r;
+      }
   }
-  // And, finally, convert to the actual axial coordinate.
-  return ixpeAxialCoordinate(q, r);
+  // And, finally, convert to the actual cube coordinate.
+return ixpeCubeCoordinate(q, r, s);
 }
