@@ -35,8 +35,8 @@ ixpeswpy/*.pyc
 
 # xperecon files
 */xperecon/Pixy
-*/xperecon/out/*
+*/xperecon/out/*.root
 */xperecon/datafiles/*
 */xperecon/bin/*.d
 */xperecon/obj/*.o
-*/xperecon/obsolete
+*/xperecon/obsolete/*
