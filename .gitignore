@@ -32,3 +32,11 @@
 */swig/*_wrap.cxx
 ixpeswpy/*.py
 ixpeswpy/*.pyc
+
+# xperecon files
+*/xperecon/Pixy
+*/xperecon/out/*
+*/xperecon/datafiles/*
+*/xperecon/bin/*.d
+*/xperecon/obj/*.o
+*/xperecon/obsolete
