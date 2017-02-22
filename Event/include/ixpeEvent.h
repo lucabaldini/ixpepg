@@ -24,6 +24,8 @@ with this program; if not, write to the Free Software Foundation Inc.,
 #define IXPEEVENT_H
 
 
+#include <vector>
+
 #include "ixpeEventWindow.h"
 #include "ixpeDataFormat.h"
 
@@ -35,7 +37,11 @@ class ixpeEvent : public ixpeEventWindow
   /// Default constructor.
   ixpeEvent();
 
-  /// Basic constructor.
+  /// Basic constructor (event window only)
+  ixpeEvent(int minColumn, int maxColumn, int minRow, int maxRow,
+	          int bufferId, idf_tick_t ticks, idf_second_t seconds);
+
+  /// Constructor with pixel counts.
   /// It assumed that the input adc_counts vector is ordered in the right way
   /// i.e. the one implicilty defined by the transformation between index
   /// and coordinates defined here
