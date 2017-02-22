@@ -82,7 +82,7 @@ int cubicToIndex(const ixpeEventWindow& window,
 /// Return the cubic coordinates associate to a given index
 ixpeCubeCoordinate indexToCubic(const ixpeEventWindow& window, int index)
 {
-  return cube2eroffset(indexToOffset(window, index));
+  return eroffset2cube(indexToOffset(window, index));
 }
 
   
@@ -101,5 +101,5 @@ bool isInWindow(const ixpeEventWindow& window,
 bool isInWindow(const ixpeEventWindow& window,
                 const ixpeCubeCoordinate& coords)
 {
-  return isInWindow(window, cube2eroffset(coords))
+  return isInWindow(window, cube2eroffset(coords));
 }

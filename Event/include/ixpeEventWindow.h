@@ -100,7 +100,7 @@ ixpeOffsetCoordinate indexToOffset(const ixpeEventWindow& window, int index);
 
 /// Return the index associate to given cubic coordinate
 int cubicToIndex(const ixpeEventWindow& window,
-                 const ixpeCubeCoordinate &coords) const;  
+                 const ixpeCubeCoordinate &coords);  
   
 /// Return the cubic coordinates associate to a given index
 ixpeCubeCoordinate indexToCubic(const ixpeEventWindow& window, int index);
