@@ -32,6 +32,15 @@ ixpeEvent::ixpeEvent() :
 
 
 ixpeEvent::ixpeEvent(int minColumn, int maxColumn, int minRow, int maxRow,
+		     int bufferId, idf_tick_t ticks, idf_second_t seconds) :
+  ixpeEventWindow(minColumn, maxColumn, minRow, maxRow),
+  m_bufferId(bufferId),
+  m_ticks(ticks),
+  m_seconds(seconds)
+{}
+
+
+ixpeEvent::ixpeEvent(int minColumn, int maxColumn, int minRow, int maxRow,
 		     int bufferId, idf_tick_t ticks, idf_second_t seconds,
 		     const std::vector<idf_adc_count_t>& adc_counts) :
   ixpeEventWindow(minColumn, maxColumn, minRow, maxRow),
