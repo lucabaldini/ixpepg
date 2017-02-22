@@ -157,10 +157,10 @@ class ixpeCubeCoordinate
 };
 
 ///
-ixpeOffsetCoordinate cube2eroffset(ixpeCubeCoordinate c);
+ixpeOffsetCoordinate cube2eroffset(const ixpeCubeCoordinate& c);
 
 ///
-ixpeCubeCoordinate eroffset2cube(ixpeOffsetCoordinate c);
+ixpeCubeCoordinate eroffset2cube(const ixpeOffsetCoordinate& c);
 
 ///
 ixpeCubeCoordinate cubeRound(double fq, double fr, double fs);
