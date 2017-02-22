@@ -64,7 +64,7 @@ COMPILE = $(CC) $(DEPFLAGS) $(CPPFLAGS) -c $(INCLUDE_FLAGS)
 
 #Create the list of .o files by changing the extension of the source files
 #and redirecting the path to point to the build directory
-#NOTE: 'notdir' remove everything from the path up to the last /, leaving basically the filename+extension
+#NOTE: 'notdir' remove everything from the path up to the last /, leaving basically filename+extension
 OBJECTS := $(addprefix $(BUILDDIR)/,$(notdir $(SOURCES:.$(SRCEXT)=.$(OBJEXT))))
 
 #Default Make
@@ -81,7 +81,7 @@ clean:
 cleaner: clean
 	@$(RM) -rf $(TARGETDIR)
 
-#Link (the dependency after the pipeline are order dependency)
+#Link (the dependencies after the pipeline are order dependency)
 $(TARGETDIR)/$(TARGET): $(OBJECTS) | $(TARGETDIR)
 	$(CC) $(DEPFLAGS) $(CPPFLAGS) $^ -o $(TARGETDIR)/$(TARGET)
 
