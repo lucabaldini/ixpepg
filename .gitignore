@@ -40,3 +40,6 @@ ixpeswpy/*.pyc
 */xperecon/bin/*.d
 */xperecon/obj/*.o
 */xperecon/obsolete/*
+
+# auto-generated dependency directory
+dep/*
