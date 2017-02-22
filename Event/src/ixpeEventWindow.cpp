@@ -49,3 +49,48 @@ std::ostream& ixpeEventWindow::fillStream(std::ostream& os) const
      << std::setw(3) << m_maxRow << ") " << size() << " px";
   return os;
 }
+
+
+int ixpeEventWindow::offsetToIndex(const ixpeOffsetCoordinate &coords) const
+{
+  if (!isInWindow(coords))
+    throw -1; /// FIXME: we need a proper exception
+  else return coords.column() - minColumn() +\
+              (coords.row() - minRow()) * numColumns();
+}
+
+  
+ixpeOffsetCoordinate ixpeEventWindow::indexToOffset(int index) const
+{
+  return ixpeOffsetCoordinate(index % numColumns() + minColumn(),
+                              index / numColumns() + minRow());
+}
+
+  
+int ixpeEventWindow::cubicToIndex(const ixpeCubeCoordinate &coords) const
+{
+  if (!isInWindow(coords))
+    throw -1; /// FIXME: we need a proper exception
+  else return offsetToIndex(cube2eroffset(coords));
+}
+
+
+ixpeCubeCoordinate ixpeEventWindow::indexToCubic(int index) const
+{
+  return cube2eroffset(indexToOffset(index));
+}
+
+
+bool ixpeEventWindow::isInWindow(const ixpeOffsetCoordinate& coords) const
+{
+  return (coords.row() >= minRow() && \
+          coords.row() <= maxRow() && \
+          coords.column() >= minColumn() && \
+          coords.column() <= maxColumn());
+}
+
+
+bool ixpeEventWindow::isInWindow(const ixpeCubeCoordinate& coords) const
+{
+  return isInWindow(cube2eroffset(coords))
+}

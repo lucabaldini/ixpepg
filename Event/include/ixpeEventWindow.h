@@ -27,6 +27,8 @@ with this program; if not, write to the Free Software Foundation Inc.,
 #include <iostream>
 #include <iomanip>
 
+#include "ixpeHexagonalCoordinates.h"
+
 
 class ixpeEventWindow
 {
@@ -68,6 +70,24 @@ class ixpeEventWindow
   {
     return w.fillStream(os);
   }
+  
+  /// Return the index associate to given offset coordinates
+  int offsetToIndex(const ixpeOffsetCoordinate &coords) const;
+  
+  /// Return the offset coordinates associate to a given index
+  ixpeOffsetCoordinate indexToOffset(int index) const;
+  
+  /// Return the index associate to given cubic coordinate
+  int cubicToIndex(const ixpeCubeCoordinate &coords) const;  
+  
+  /// Return the cubic coordinates associate to a given index
+  ixpeCubeCoordinate indexToCubic(int index) const;
+    
+  /// Check if the given offset coordinates belong to this window
+  bool isInWindow(const ixpeOffsetCoordinate& coords) const;
+  
+  /// Check if the given cubic coordinates belong to this window
+  bool isInWindow(const ixpeCubeCoordinate& coords) const;
   
 
  private:

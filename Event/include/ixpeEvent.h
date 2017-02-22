@@ -27,7 +27,6 @@ with this program; if not, write to the Free Software Foundation Inc.,
 #include "ixpeEventWindow.h"
 #include "ixpeDataFormat.h"
 
-
 class ixpeEvent : public ixpeEventWindow
 {
   
@@ -41,10 +40,20 @@ class ixpeEvent : public ixpeEventWindow
   /// i.e. the one implicilty defined by the transformation between index
   /// and coordinates defined here
   ixpeEvent(int minColumn, int maxColumn, int minRow, int maxRow,
-	    int bufferId, idf_tick_t ticks, idf_second_t seconds,
-	    const std::vector<idf_adc_count_t>& adc_counts);
+	          int bufferId, idf_tick_t ticks, idf_second_t seconds,
+            const std::vector<idf_adc_count_t>& adc_counts);
 
   double timestamp() const;
+
+  /// Randm access to pixel content in the event
+  idf_adc_count_t operator() (int index) const
+    {return m_adc_counts.at(index);}
+  
+  /// Retrieve pixel counts by offset coordinates
+  idf_adc_count_t operator() (const ixpeOffsetCoordinate& coords) const;
+  
+  /// Retrieve pixel counts by cubic coordinates
+  idf_adc_count_t operator() (const ixpeCubeCoordinate& coords) const;
 
   /// Streamer function for overloading the << operator.
   std::ostream& fillStream(std::ostream& os) const;
