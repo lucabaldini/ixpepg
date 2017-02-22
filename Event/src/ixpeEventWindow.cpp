@@ -51,46 +51,55 @@ std::ostream& ixpeEventWindow::fillStream(std::ostream& os) const
 }
 
 
-int ixpeEventWindow::offsetToIndex(const ixpeOffsetCoordinate &coords) const
+
+/// Return the index associate to given offset coordinates
+int offsetToIndex(const ixpeEventWindow& window,
+                  const ixpeOffsetCoordinate &coords)
 {
-  if (!isInWindow(coords))
+  if (!isInWindow(window, coords))
     throw -1; /// FIXME: we need a proper exception
-  else return coords.column() - minColumn() +\
-              (coords.row() - minRow()) * numColumns();
+  else return coords.column() - window.minColumn() +\
+              (coords.row() - window.minRow()) * window.numColumns();
+}  
+
+  
+/// Return the offset coordinates associate to a given index
+ixpeOffsetCoordinate indexToOffset(const ixpeEventWindow& window, int index)
+{
+  return ixpeOffsetCoordinate(index % window.numColumns() +window.minColumn(),
+                              index / window.numColumns() + window.minRow());
+}
+
+
+/// Return the index associate to given cubic coordinate
+int cubicToIndex(const ixpeEventWindow& window,
+                 const ixpeCubeCoordinate &coords)  
+{
+  return offsetToIndex(window, cube2eroffset(coords));
+}
+
+
+/// Return the cubic coordinates associate to a given index
+ixpeCubeCoordinate indexToCubic(const ixpeEventWindow& window, int index)
+{
+  return cube2eroffset(indexToOffset(window, index));
 }
 
   
-ixpeOffsetCoordinate ixpeEventWindow::indexToOffset(int index) const
+/// Check if the given offset coordinates belong to a given window
+bool isInWindow(const ixpeEventWindow& window,
+                const ixpeOffsetCoordinate& coords)
 {
-  return ixpeOffsetCoordinate(index % numColumns() + minColumn(),
-                              index / numColumns() + minRow());
+  return (coords.row() >= window.minRow() && \
+          coords.row() <= window.maxRow() && \
+          coords.column() >= window.minColumn() && \
+          coords.column() <= window.maxColumn());
 }
 
-  
-int ixpeEventWindow::cubicToIndex(const ixpeCubeCoordinate &coords) const
+ 
+/// Check if the given cubic coordinates belong to a given window
+bool isInWindow(const ixpeEventWindow& window,
+                const ixpeCubeCoordinate& coords)
 {
-  if (!isInWindow(coords))
-    throw -1; /// FIXME: we need a proper exception
-  else return offsetToIndex(cube2eroffset(coords));
-}
-
-
-ixpeCubeCoordinate ixpeEventWindow::indexToCubic(int index) const
-{
-  return cube2eroffset(indexToOffset(index));
-}
-
-
-bool ixpeEventWindow::isInWindow(const ixpeOffsetCoordinate& coords) const
-{
-  return (coords.row() >= minRow() && \
-          coords.row() <= maxRow() && \
-          coords.column() >= minColumn() && \
-          coords.column() <= maxColumn());
-}
-
-
-bool ixpeEventWindow::isInWindow(const ixpeCubeCoordinate& coords) const
-{
-  return isInWindow(cube2eroffset(coords))
+  return isInWindow(window, cube2eroffset(coords))
 }

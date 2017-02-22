@@ -71,24 +71,6 @@ class ixpeEventWindow
     return w.fillStream(os);
   }
   
-  /// Return the index associate to given offset coordinates
-  int offsetToIndex(const ixpeOffsetCoordinate &coords) const;
-  
-  /// Return the offset coordinates associate to a given index
-  ixpeOffsetCoordinate indexToOffset(int index) const;
-  
-  /// Return the index associate to given cubic coordinate
-  int cubicToIndex(const ixpeCubeCoordinate &coords) const;  
-  
-  /// Return the cubic coordinates associate to a given index
-  ixpeCubeCoordinate indexToCubic(int index) const;
-    
-  /// Check if the given offset coordinates belong to this window
-  bool isInWindow(const ixpeOffsetCoordinate& coords) const;
-  
-  /// Check if the given cubic coordinates belong to this window
-  bool isInWindow(const ixpeCubeCoordinate& coords) const;
-  
 
  private:
 
@@ -105,6 +87,31 @@ class ixpeEventWindow
   int m_maxRow;
   
 };
+
+
+///FIXME: do this transformations really belong here?
+
+/// Return the index associate to given offset coordinates
+int offsetToIndex(const ixpeEventWindow& window,
+                  const ixpeOffsetCoordinate &coords);
+  
+/// Return the offset coordinates associate to a given index
+ixpeOffsetCoordinate indexToOffset(const ixpeEventWindow& window, int index);
+
+/// Return the index associate to given cubic coordinate
+int cubicToIndex(const ixpeEventWindow& window,
+                 const ixpeCubeCoordinate &coords) const;  
+  
+/// Return the cubic coordinates associate to a given index
+ixpeCubeCoordinate indexToCubic(const ixpeEventWindow& window, int index);
+    
+/// Check if the given offset coordinates belong to a given window
+bool isInWindow(const ixpeEventWindow& window,
+                const ixpeOffsetCoordinate& coords);
+  
+/// Check if the given cubic coordinates belong to a given window
+bool isInWindow(const ixpeEventWindow& window,
+                const ixpeCubeCoordinate& coords);
 
 
 #endif //IXPEEVENTWINDOW_H
