@@ -5,7 +5,7 @@ import os
 
 
 MODULE_NAME = 'IDF'
-DEPS = ['Event']
+DEPS = ['Event', 'Geometry', 'XPOL', 'Utils']
 
 # Absolute or relative paths?
 BASE_DIR = os.pardir

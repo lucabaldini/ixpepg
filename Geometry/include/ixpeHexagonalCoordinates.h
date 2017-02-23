@@ -79,6 +79,9 @@ class ixpeOffsetCoordinate
   /// Constructor.
   ixpeOffsetCoordinate(int column, int row);
 
+  /// Empty constructor.
+  ixpeOffsetCoordinate() : ixpeOffsetCoordinate(0, 0) {;}
+
   /// Return the column coordinate.
   int column() const {return m_column;}
 
@@ -119,6 +122,9 @@ class ixpeCubeCoordinate
 
   /// Constructor.
   ixpeCubeCoordinate(int q, int r, int s);
+
+  /// Empty constructor.
+ ixpeCubeCoordinate() : ixpeCubeCoordinate(0, 0, 0) {;}
 
   /// Return the q coordinate.
   int q() const {return m_q;}
