@@ -26,16 +26,16 @@ TEST_OFFSET_COORDINATES = [(0,0), (0,1), (0,2), (0,3), (1,0), (2,0), (1,1),
                            (2,2), (299,0), (0, 351), (299,351)]
 
 
-def test_offset_axial():
+def test_offset_cube():
     """
     """
     for (col, row) in TEST_OFFSET_COORDINATES:
         oc = ixpeOffsetCoordinate(col, row)
-        ac = eroffset2axial(oc)
-        tc = axial2eroffset(ac)
-        print('%s -> %s -> %s' % (oc, ac, tc)) 
+        cc = eroffset2cube(oc)
+        tc = cube2eroffset(cc)
+        print('%s -> %s -> %s' % (oc, cc, tc)) 
         assert tc == oc
 
 
 if __name__ == '__main__':
-    test_offset_axial()
+    test_offset_cube()
