@@ -81,14 +81,14 @@ std::ostream& ixpeCubeCoordinate::fillStream(std::ostream& os) const
 }
 
 
-ixpeOffsetCoordinate cube2eroffset(const ixpeCubeCoordinate& c) {
+ixpeOffsetCoordinate cubeToEroffset(const ixpeCubeCoordinate& c) {
   int col = c.q() + int((c.r() + (c.r() & 1)) / 2);
   int row = c.r();
   return ixpeOffsetCoordinate(col, row);
 }
 
 
-ixpeCubeCoordinate eroffset2cube(const ixpeOffsetCoordinate& c) {
+ixpeCubeCoordinate eroffsetToCube(const ixpeOffsetCoordinate& c) {
   int q = c.column() - int((c.row() + (c.row() & 1)) / 2);
   int r = c.row();
   int s = -q -r; 
