@@ -28,8 +28,8 @@ with this program; if not, write to the Free Software Foundation Inc.,
 
 struct ixpeHit
 {
-  float x;
-  float y;
+  double x;
+  double y;
   idf_adc_count_t count;
 };
 
