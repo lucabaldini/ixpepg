@@ -36,15 +36,15 @@ def test_coordinates():
     """
     for (col, row) in TEST_COORDINATES:
         off1 = ixpeOffsetCoordinate(col, row)
-        cart = GRID.pixel2world(off1)
-        off2 = GRID.world2pixel(cart)
+        cart = GRID.pixelToWorld(off1)
+        off2 = GRID.worldToPixel(cart)
         print('%s -> %s -> %s' % (off1, cart, off2))
 
 def test_exception():
     """
     """
     try:
-        GRID.world2pixel(100., 100.)
+        GRID.worldToPixel(100., 100.)
     except Exception as e:
         print(e)
 
@@ -63,7 +63,7 @@ def test_random(n=100000, side=0.1):
     ygray = []
     for _x, _y in zip(x, y):
         _cart = ixpeCartesianCoordinate(_x, _y)
-        _off = GRID.world2pixel(_x, _y)
+        _off = GRID.worldToPixel(_x, _y)
         _col, _row = _off.column(), _off.row()
         if _col % 2 and _row % 2:
             xred.append(_x)
