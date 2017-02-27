@@ -51,16 +51,16 @@ class ixpeHexagonalGrid
   ixpeHexagonalGrid(int numColumns, int numRows, double columnPitch);
 
   /// Return the physical coordinates of a given pixel.
-  ixpeCartesianCoordinate pixel2world(int col, int row) const;
+  ixpeCartesianCoordinate pixelToWorld(int col, int row) const;
 
   /// Return the physical coordinates of a given pixel.
-  ixpeCartesianCoordinate pixel2world(const ixpeOffsetCoordinate& off) const;
+  ixpeCartesianCoordinate pixelToWorld(const ixpeOffsetCoordinate& off) const;
 
   /// Return the address of the neirest pixel, given a physical position.
-  ixpeOffsetCoordinate world2pixel(double x, double y) const;
+  ixpeOffsetCoordinate worldToPixel(double x, double y) const;
 
   /// Return the address of the neirest pixel, given a physical position.
-  ixpeOffsetCoordinate world2pixel(const ixpeCartesianCoordinate& cart) const;
+  ixpeOffsetCoordinate worldToPixel(const ixpeCartesianCoordinate& cart) const;
     
    
  private:

@@ -39,7 +39,7 @@ ixpeHexagonalGrid::ixpeHexagonalGrid(int numColumns, int numRows,
 {}
 
 
-ixpeCartesianCoordinate ixpeHexagonalGrid::pixel2world(int col, int row) const
+ixpeCartesianCoordinate ixpeHexagonalGrid::pixelToWorld(int col, int row) const
 {
   double x = (col - 0.5 * (row & 1)) * m_columnPitch - m_columnOffset;
   double y = m_rowOffset - row * m_rowPitch;
@@ -48,13 +48,13 @@ ixpeCartesianCoordinate ixpeHexagonalGrid::pixel2world(int col, int row) const
 
 
 ixpeCartesianCoordinate
-ixpeHexagonalGrid::pixel2world(const ixpeOffsetCoordinate& off) const
+ixpeHexagonalGrid::pixelToWorld(const ixpeOffsetCoordinate& off) const
 {
-  return pixel2world(off.column(), off.row());
+  return pixelToWorld(off.column(), off.row());
 }
 
 
-ixpeOffsetCoordinate ixpeHexagonalGrid::world2pixel(double x, double y) const
+ixpeOffsetCoordinate ixpeHexagonalGrid::worldToPixel(double x, double y) const
 {
   x = m_columnOffset + x;
   y = m_rowOffset - y;
@@ -70,9 +70,9 @@ ixpeOffsetCoordinate ixpeHexagonalGrid::world2pixel(double x, double y) const
 
 
 ixpeOffsetCoordinate
-ixpeHexagonalGrid::world2pixel(const ixpeCartesianCoordinate& cart) const
+ixpeHexagonalGrid::worldToPixel(const ixpeCartesianCoordinate& cart) const
 {
-  return world2pixel(cart.x(), cart.y());
+  return worldToPixel(cart.x(), cart.y());
 }
 
 
