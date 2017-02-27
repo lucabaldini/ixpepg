@@ -1,3 +1,3 @@
-UTILS_SOURCES := $(shell find Utils/$(SRCDIR) -type f -name \*.$(SRCEXT))
-SOURCES += $(UTILS_SOURCES)
-INCLUDE_FLAGS += -I Utils/$(INCDIR)
+UTILS_SOURCES := $(shell find $(IXPESWROOT)/Utils/$(SRCDIR) -type f -name \*.$(SRCEXT))
+SOURCES += $(IXPESWROOT)/$(UTILS_SOURCES)
+INCLUDE_FLAGS += -I $(IXPESWROOT)/Utils/$(INCDIR)

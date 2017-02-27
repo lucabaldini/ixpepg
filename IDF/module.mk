@@ -1,3 +1,3 @@
-IDF_SOURCES := $(shell find IDF/$(SRCDIR) -type f -name \*.$(SRCEXT))
-SOURCES += $(IDF_SOURCES)
-INCLUDE_FLAGS += -I IDF/$(INCDIR)
+IDF_SOURCES := $(shell find $(IXPESWROOT)/IDF/$(SRCDIR) -type f -name \*.$(SRCEXT))
+SOURCES += $(IXPESWROOT)/$(IDF_SOURCES)
+INCLUDE_FLAGS += -I $(IXPESWROOT)/IDF/$(INCDIR)

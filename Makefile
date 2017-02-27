@@ -1,8 +1,24 @@
-#The executable we want to create
+# Check that given variables are set and all have non-empty values,
+# die with an error otherwise.
+#
+# Params:
+#   1. Variable name(s) to test.
+#   2. (optional) Error message to print.
+check_defined = \
+    $(strip $(foreach 1,$1, \
+        $(call __check_defined,$1,$(strip $(value 2)))))
+__check_defined = \
+    $(if $(value $1),, \
+      $(error Undefined $1$(if $2, ($2))))
+
+#Here we check all the necessary environment variables
+$(call check_defined, IXPESWROOT,"Pleas set the IXPESWROOT variables to the ixpepg root diretcory")
+
+#The executable we want to create (name only)
 TARGET := testGeometry
 
 #Executable output directory
-TARGETDIR := bin
+TARGETDIR := $(IXPESWROOT)/bin
 
 #Package dependencies
 MODULES := Utils Geometry XPOL
@@ -13,10 +29,10 @@ SRCDIR := src
 INCDIR := include
 
 #We will have only one global build dir and one global dependency dir
-BUILDDIR := build
-DEPDIR   := dep
+BUILDDIR := $(IXPESWROOT)/build
+DEPDIR   := $(IXPESWROOT)/dep
 
-#The relevant files extension
+#The relevant file extensions
 SRCEXT := cpp
 DEPEXT := d
 OBJEXT := o
@@ -40,10 +56,13 @@ DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.Td
 POSTCOMPILE = mv -f $(DEPDIR)/$*.Td $(DEPDIR)/$*.d
 
 #List of all required source files: each module will add to this list
-SOURCES := testMain.cpp
+SOURCES := $(IXPESWROOT)/testMain.cpp
 
 #Include path list (each module will add to this list too)
 INCLUDE_FLAGS :=
+
+#Make the modules path absolute
+MODULES := $(addprefix $(IXPESWROOT)/,$(MODULES))
 
 #Load source files and include path from the .mk files in the submodules
 include $(patsubst %,%/module.mk,$(MODULES))
@@ -52,8 +71,8 @@ include $(patsubst %,%/module.mk,$(MODULES))
 #files without need for the full path in the rules
 vpath %.cpp $(sort $(dir $(SOURCES)))
 
-#FIXME: the same trick should work for the .h too, but for some reason it
-#doesn't. I have switched to the -I option instead
+#FIXME: the same vpath trick should work for the .h too, but for some reason
+#it doesn't. I have switched to the -I option instead
 
 #The rule that will be used to compile
 COMPILE = $(CC) $(DEPFLAGS) $(CPPFLAGS) -c $(INCLUDE_FLAGS)
