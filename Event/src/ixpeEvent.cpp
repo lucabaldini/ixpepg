@@ -57,6 +57,19 @@ double ixpeEvent::timestamp() const
 }
 
 
+idf_adc_count_t ixpeEvent::operator() (
+                                    const ixpeOffsetCoordinate& coords) const
+{
+  return m_adc_counts.at(offsetToIndex(*this, coords));
+}
+
+
+idf_adc_count_t ixpeEvent::operator() (const ixpeCubeCoordinate& coords) const
+{
+  return m_adc_counts.at(cubicToIndex(*this, coords));
+}
+
+
 std::ostream& ixpeEvent::fillStream(std::ostream& os) const
 {
   ixpeEventWindow::fillStream(os);
