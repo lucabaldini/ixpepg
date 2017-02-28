@@ -25,6 +25,8 @@ with this program; if not, write to the Free Software Foundation Inc.,
 
 
 #include <vector>
+#include <iostream>
+#include <iomanip>
 
 #include "ixpeHit.h"
 
@@ -51,8 +53,17 @@ class ixpeTrack
     const ixpeHit& operator() (int index) const;
     
     /// Number of hits
-    int nOfHits()const
+    int nOfHits() const
       {return static_cast<int>(m_hits.size());}
+    
+    /// Streamer function for overloading the << operator.
+    std::ostream& fillStream(std::ostream& os) const;
+
+    /// Overloaded << operator.
+    friend std::ostream& operator<<(std::ostream& os, const ixpeTrack& tr)
+    {
+      return tr.fillStream(os);
+    }
     
     
   private:

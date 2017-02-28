@@ -33,3 +33,13 @@ const ixpeHit& ixpeTrack::operator() (int index) const
     throw -1; // FIXME we need a proper exception
   return m_hits.at(index);
 }
+
+
+std::ostream& ixpeTrack::fillStream(std::ostream& os) const
+{
+  os << "Track of " << nOfHits() << " hits: ";
+  for (const auto& hit : m_hits){
+    os << "(" << hit.x << ", " << hit.y << ", " << hit.count << "), ";
+  }
+  return os;
+}
