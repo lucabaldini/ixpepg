@@ -41,13 +41,11 @@ class ixpeEvent : public ixpeEventWindow
   ixpeEvent(int minColumn, int maxColumn, int minRow, int maxRow,
 	          int bufferId, idf_tick_t ticks, idf_second_t seconds);
 
-  /// Constructor with pixel counts.
-  /// It assumed that the input adc_counts vector is ordered in the right way
-  /// i.e. the one implicilty defined by the transformation between index
-  /// and coordinates defined here
-  ixpeEvent(int minColumn, int maxColumn, int minRow, int maxRow,
-	          int bufferId, idf_tick_t ticks, idf_second_t seconds,
-            const std::vector<idf_adc_count_t>& adc_counts);
+  /// Add the content of the next pixel to the event (used to fill the event
+  /// in a loop). The caller is responsible for providing the values in the
+  /// right order, i.e. the one implicitly defined by the transformations
+  /// in ixpeEventWindow
+  void addPixel(idf_adc_count_t adc_count);
 
   double timestamp() const;
 

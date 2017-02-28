@@ -89,8 +89,12 @@ ixpeEvent ixpeBinaryFile::next()
   int s2 = read();
   ixpeEvent event(minColumn, maxColumn, minRow, maxRow, bufferId,
 		  ticks(t1, t2), seconds(s1, s2));
+  /// Here we assume that the input files has the pixels listed in the right
+  /// order, i.e. the one implicilty defined by the transformations between
+  /// index and coordinates in ixpeEventWindow.h
   for (int i = 0; i < event.size(); i ++) {
       idf_adc_count_t adc = read();
+      event.addPixel(adc);
   }
   return event;
 }

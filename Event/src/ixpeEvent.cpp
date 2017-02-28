@@ -40,15 +40,14 @@ ixpeEvent::ixpeEvent(int minColumn, int maxColumn, int minRow, int maxRow,
 {}
 
 
-ixpeEvent::ixpeEvent(int minColumn, int maxColumn, int minRow, int maxRow,
-		     int bufferId, idf_tick_t ticks, idf_second_t seconds,
-		     const std::vector<idf_adc_count_t>& adc_counts) :
-  ixpeEventWindow(minColumn, maxColumn, minRow, maxRow),
-  m_bufferId(bufferId),
-  m_ticks(ticks),
-  m_seconds(seconds), 
-  m_adc_counts(adc_counts)
-{}
+void ixpeEvent::addPixel(idf_adc_count_t adc_count)
+{
+  /// Check that the size of the vector won't excede the one declared
+  /// in the header of the event after the addition
+  if (static_cast<int>(m_adc_counts.size()) >= this->size())
+    throw -1;
+  m_adc_counts.push_back(adc_count);
+}
 
 
 double ixpeEvent::timestamp() const
