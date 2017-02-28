@@ -26,6 +26,8 @@ with this program; if not, write to the Free Software Foundation Inc.,
 #include "ixpeHexagonalCoordinates.h"
 
 
+/* ixpeCartesianCoordinate */
+
 ixpeCartesianCoordinate::ixpeCartesianCoordinate(double x, double y) :
   m_x(x),
   m_y(y)
@@ -39,6 +41,8 @@ std::ostream& ixpeCartesianCoordinate::fillStream(std::ostream& os) const
   return os;
 }
 
+
+/* ixpeOffsetCoordinate */
 
 ixpeOffsetCoordinate::ixpeOffsetCoordinate(int column, int row) :
   m_column(column),
@@ -59,6 +63,26 @@ std::ostream& ixpeOffsetCoordinate::fillStream(std::ostream& os) const
   return os;
 }
 
+
+const ixpeOffsetCoordinate operator+(const ixpeOffsetCoordinate& lhs,
+                                     const ixpeOffsetCoordinate& rhs)
+{
+  // we can access member directly because this is a friend function
+	return ixpeOffsetCoordinate(lhs.m_column + rhs.m_column,
+	                            lhs.m_row + rhs.m_row);
+}
+
+
+const ixpeOffsetCoordinate operator-(const ixpeOffsetCoordinate& lhs,
+                                     const ixpeOffsetCoordinate& rhs)
+{
+  // we can access member directly because this is a friend function
+	return ixpeOffsetCoordinate(lhs.m_column - rhs.m_column,
+	                            lhs.m_row - rhs.m_row);
+}
+
+
+/* ixpeCubeCoordinate */
 
 ixpeCubeCoordinate::ixpeCubeCoordinate(int q, int r, int s) :
   m_q(q),
@@ -81,6 +105,26 @@ std::ostream& ixpeCubeCoordinate::fillStream(std::ostream& os) const
 }
 
 
+const ixpeCubeCoordinate operator+(const ixpeCubeCoordinate& lhs,
+                                   const ixpeCubeCoordinate& rhs)
+{
+	// we can access member directly because this is a friend function
+	return ixpeCubeCoordinate(lhs.m_q + rhs.m_q, lhs.m_r + rhs.m_r,
+	                          lhs.m_s + rhs.m_s);
+}
+
+
+const ixpeCubeCoordinate operator-(const ixpeCubeCoordinate& lhs,
+                                   const ixpeCubeCoordinate& rhs)
+{
+	// we can access member directly because this is a friend function
+	return ixpeCubeCoordinate(lhs.m_q - rhs.m_q, lhs.m_r - rhs.m_r,
+	                          lhs.m_s - rhs.m_s);
+}
+
+
+/* Coordinates transformation */
+
 ixpeOffsetCoordinate cubeToEroffset(const ixpeCubeCoordinate& c) {
   int col = c.q() + int((c.r() + (c.r() & 1)) / 2);
   int row = c.r();
@@ -95,6 +139,8 @@ ixpeCubeCoordinate eroffsetToCube(const ixpeOffsetCoordinate& c) {
   return ixpeCubeCoordinate(q, r, s);
 }
 
+
+/* Other utility functions */
 
 ixpeCubeCoordinate cubeRound(double fq, double fr, double fs)
 {
@@ -121,4 +167,19 @@ ixpeCubeCoordinate cubeRound(double fq, double fr, double fs)
   }
   // And, finally, convert to the actual cube coordinate.
 return ixpeCubeCoordinate(q, r, s);
+}
+
+
+std::vector<ixpeCubeCoordinate> neighborCoords(
+                                             const ixpeCubeCoordinate& coords)
+{
+  // It's faster to reserve the memory in advance (a pixel has 6 neighbors)
+  std::vector<ixpeCubeCoordinate> neighborsVec(6);
+  neighborsVec[0] = coords + ixpeCubeCoordinate(+1, -1,  0);
+  neighborsVec[1] = coords + ixpeCubeCoordinate(+1,  0, -1);
+  neighborsVec[2] = coords + ixpeCubeCoordinate( 0, +1, -1);
+  neighborsVec[3] = coords + ixpeCubeCoordinate(-1, +1,  0);
+  neighborsVec[4] = coords + ixpeCubeCoordinate(-1,  0, +1);
+  neighborsVec[5] = coords + ixpeCubeCoordinate( 0, -1, +1);
+  return neighborsVec;
 }

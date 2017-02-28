@@ -25,6 +25,7 @@ with this program; if not, write to the Free Software Foundation Inc.,
 
 
 #include <iostream>
+#include <vector>
 
 /* 
 define coordinades types 
@@ -89,18 +90,23 @@ class ixpeOffsetCoordinate
   int row() const {return m_row;}
 
   /// Overloaded comparison operator.
-  bool operator==(const ixpeOffsetCoordinate& rhs);
+  bool operator==(const ixpeOffsetCoordinate& rhs);         
 
   /// Streamer function for overloading the << operator.
   std::ostream& fillStream(std::ostream& os) const;
 
   /// Overloaded << operator.
   friend std::ostream& operator<<(std::ostream& os,
-				  const ixpeOffsetCoordinate& c)
+	                                const ixpeOffsetCoordinate& c)
   {
     return c.fillStream(os);
   }
 
+  /// Sum and difference
+  friend const ixpeOffsetCoordinate operator+(const ixpeOffsetCoordinate& lhs,
+                                             const ixpeOffsetCoordinate& rhs);
+  friend const ixpeOffsetCoordinate operator-(const ixpeOffsetCoordinate& lhs,
+                                             const ixpeOffsetCoordinate& rhs);
   
  private:
 
@@ -137,7 +143,7 @@ class ixpeCubeCoordinate
 
   /// Overloaded comparison operator.
   bool operator==(const ixpeCubeCoordinate& rhs);
-
+  
   /// Streamer function for overloading the << operator.
   std::ostream& fillStream(std::ostream& os) const;
 
@@ -148,7 +154,12 @@ class ixpeCubeCoordinate
     return c.fillStream(os);
   }
 
-  
+  /// Sum and difference
+  friend const ixpeCubeCoordinate operator+(const ixpeCubeCoordinate &lhs,
+                                            const ixpeCubeCoordinate &rhs);
+  friend const ixpeCubeCoordinate operator-(const ixpeCubeCoordinate &lhs,
+                                            const ixpeCubeCoordinate &rhs);
+
  private:
 
   /// The q coordinate.
@@ -171,5 +182,13 @@ ixpeCubeCoordinate eroffsetToCube(const ixpeOffsetCoordinate& c);
 ///
 ixpeCubeCoordinate cubeRound(double fq, double fr, double fs);
 
+
+/// Distance in cubic coordinate
+int cubicDistance (const ixpeCubeCoordinate& lhs,
+                   const ixpeCubeCoordinate& rhs);
+
+/// Neighbors of a given pixels in cubic coordinates
+std::vector<ixpeCubeCoordinate> neighborCoords(
+                                            const ixpeCubeCoordinate& coords);
 
 #endif //IXPEHEXAGONALCOORDINATES_H
