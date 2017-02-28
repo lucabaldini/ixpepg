@@ -31,8 +31,8 @@ def test_offset_cube():
     """
     for (col, row) in TEST_OFFSET_COORDINATES:
         oc = ixpeOffsetCoordinate(col, row)
-        cc = eroffset2cube(oc)
-        tc = cube2eroffset(cc)
+        cc = eroffsetToCube(oc)
+        tc = cubeToEroffset(cc)
         print('%s -> %s -> %s' % (oc, cc, tc)) 
         assert tc == oc
 
