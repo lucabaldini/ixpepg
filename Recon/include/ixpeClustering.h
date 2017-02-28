@@ -20,8 +20,8 @@ with this program; if not, write to the Free Software Foundation Inc.,
 ***********************************************************************/
 
 
-#ifndef IXPECLUSTER_H
-#define IXPECLUSTER_H
+#ifndef IXPECLUSTERING_H
+#define IXPECLUSTERING_H
 
 
 #include <vector>
@@ -32,4 +32,4 @@ with this program; if not, write to the Free Software Foundation Inc.,
 std::vector<ixpeTrack> dbScan(const ixpeEvent& event, const int threshold,
                               const size_t minClusterPoints);
                      
-#endif //IXPECLUSTER_H
+#endif //IXPECLUSTERING_H
