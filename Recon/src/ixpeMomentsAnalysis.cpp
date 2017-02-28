@@ -34,13 +34,7 @@ ixpeMomentsAnalysis::ixpeMomentsAnalysis(const std::vector<ixpeHit> &hits,
   m_mom3long(-1000.),
   m_statusCode(UNDEFINED)
 {
-  // Create a set of identical weights (= 1)...
-  std::vector<double> weights;
-  weights.resize(hits.size());
-  for (double& weight : weights) {
-    weight = 1.;
-  }
-  // ...then run the full (weighted) moments analysis. 
+  std::vector<double> weights(hits.size(), 1.0);
   run(hits, threshold, x0, y0, weights);
 }
 
