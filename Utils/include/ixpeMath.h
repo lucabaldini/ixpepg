@@ -50,7 +50,7 @@ class ixpeMath {
   }
 
   /// Flip an angle making sure that the result is in [-pi, pi]
-  static double flipAngle(double rad) {return rad - std::copysign(pi(), rad);}
+  static double flipAngle(double rad) {return rad - copysign(pi(), rad);}
 
   /// "Exact" sqrt(3).
   static double sqrt3() {return 1.7320508075688772;}
