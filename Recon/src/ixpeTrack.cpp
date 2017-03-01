@@ -49,7 +49,7 @@ std::ostream& ixpeTrack::fillStream(std::ostream& os) const
 // Implementation to be discussed
 ixpeCartesianCoordinate ixpeTrack::barycenter() const
 {
-  if (m_pulseHeight < 0.){
+  if (m_pulseHeight <= 0.){
     throw -1; // TODO we need a proper exception here
   }
   double bx = 0;
