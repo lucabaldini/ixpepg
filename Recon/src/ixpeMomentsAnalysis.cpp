@@ -168,20 +168,6 @@ double ixpeMomentsAnalysis::elongation() const
 }
 
 
-void ixpeMomentsAnalysis::flip()
-{
-  m_phi -= std::copysign(M_PI, m_phi);
-}
-
-
-void ixpeMomentsAnalysis::flip3()
-{
-  if (m_mom3long > 0.) {
-    flip();
-  }
-}
-
-
 std::ostream& ixpeMomentsAnalysis::fillStream(std::ostream& os) const
 {
   os << "Pivot = (" << m_x0 << ", " << m_y0 << "), phi = " <<
