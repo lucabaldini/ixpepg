@@ -32,7 +32,6 @@
 # SWIG files
 */swig/*_wrap.cxx
 */swig/build/*
-*/swig/*.py
 ixpeswpy/*.py
 ixpeswpy/*.pyc
 
