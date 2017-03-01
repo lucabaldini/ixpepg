@@ -2,6 +2,7 @@
 
 %include "std_string.i"
 %include "exception.i"
+%include "std_vector.i"
 
 %exception {
 try {
@@ -42,3 +43,8 @@ std::string __str__() {
 
 %include "../include/ixpeMomentsAnalysis.h"
 %extend ixpeMomentsAnalysis {__STR__()};
+
+namespace std {
+  %template(vectorhit) vector<ixpeHit>;
+  %template(vectortrack) vector<ixpeTrack>;
+};
