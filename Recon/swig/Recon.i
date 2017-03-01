@@ -34,6 +34,11 @@ std::string __str__() {
  #include "../include/ixpeMomentsAnalysis.h"
 %}
 
+%include "../../Geometry/include/ixpeHexagonalCoordinates.h"
+%extend ixpeCartesianCoordinate {__STR__()};
+%extend ixpeOffsetCoordinate {__STR__()};
+%extend ixpeCubicCoordinate {__STR__()};
+
 %include "../include/ixpeHit.h"
 
 %include "../include/ixpeTrack.h"
