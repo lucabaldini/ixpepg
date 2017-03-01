@@ -37,7 +37,7 @@ std::string __str__() {
 %include "../../Geometry/include/ixpeHexagonalCoordinates.h"
 %extend ixpeCartesianCoordinate {__STR__()};
 %extend ixpeOffsetCoordinate {__STR__()};
-%extend ixpeCubicCoordinate {__STR__()};
+%extend ixpeCubeCoordinate {__STR__()};
 
 %include "../include/ixpeHit.h"
 
