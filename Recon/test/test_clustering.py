@@ -22,6 +22,7 @@
 from ixpeswpy.Recon import *
 from ixpeswpy.IDF import ixpeBinaryFile
 
+import os
 import numpy
 
 import matplotlib.pyplot as plt
@@ -37,7 +38,10 @@ def testCluster(event, threshold, minClusterHits):
 if __name__ == "__main__":
     """
     """
-    f = ixpeBinaryFile("/home/alberto/xpe/xpedaq/data/test_fe_500evts.mdat")
+    os.environ['IXPESWROOT']
+    filePath = os.path.join(os.environ['IXPESWROOT'], 'Recon', 'data',
+                            'test_fe_500evts.mdat')
+    f = ixpeBinaryFile(filePath)
     threshold = 5;
     minClusterHits = 1;
     nEventsToAnalyze = 10;
