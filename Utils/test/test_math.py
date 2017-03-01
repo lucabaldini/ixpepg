@@ -23,4 +23,3 @@ from ixpeswpy.Utils import ixpeMath
 
 print('PI = %f' % ixpeMath.pi())
 print('SQRT3 = %f' % ixpeMath.sqrt3())
-
