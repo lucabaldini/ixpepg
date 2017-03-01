@@ -42,23 +42,24 @@ if __name__ == "__main__":
     filePath = os.path.join(ixpeEnviron.envVar('IXPESWROOT'), 'Recon', 'data',
                             'test_fe_500evts.mdat')
     f = ixpeBinaryFile(filePath)
-    threshold = 7;
+    threshold = 5;
     minClusterHits = 1;
-    nEventsToAnalyze = 2;
+    nEventsToAnalyze = 1;
     for i in range (0, nEventsToAnalyze):
         evt = f.next()
         print(evt)
         tracks = testCluster(evt, threshold, minClusterHits)
         print ("Found %d tracks" % (tracks.size()))
+        print ("")        
         for track in tracks:
-            print (track)
-            _hits = track.hits()
-            _barycenter = track.barycenter()
-            print (_barycenter)
-            print (track.pulseHeight())
-            mom = ixpeMomentsAnalysis(_hits, threshold, _barycenter.x(),
-                                      _barycenter.y())
-            print(mom)
-            print ("\n")
-        print ("\n") 
-            
+            if (track.nOfHits() > 5):
+                print (track)
+                _hits = track.hits()
+                _barycenter = track.barycenter()
+                print ("Barycenter = %s" % (_barycenter))
+                print (track.pulseHeight())
+                mom = ixpeMomentsAnalysis(_hits, threshold, _barycenter.x(),
+                                          _barycenter.y())
+                print(mom)
+                print ("")
+        print ("")
