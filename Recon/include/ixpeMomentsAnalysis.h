@@ -77,12 +77,6 @@ class ixpeMomentsAnalysis
   /// Return the elongation, i.e., m_mom2long/m_mom2trans.
   double elongation() const;
 
-  /// Flip the angle of the principal axis.
-  void flip();
-
-  /// Flip the angle depending on the sign of the longitudinal third moment. 
-  void flip3();
-
   /// Terminal formatting.
   std::ostream& fillStream(std::ostream& os) const;
   friend std::ostream& operator<<(std::ostream& os,
