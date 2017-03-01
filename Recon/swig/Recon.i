@@ -30,6 +30,7 @@ std::string __str__() {
  #include "../include/ixpeHit.h"
  #include "../include/ixpeTrack.h"
  #include "../include/ixpeClustering.h"
+ #include "../include/ixpeMomentsAnalysis.h"
 %}
 
 %include "../include/ixpeHit.h"
@@ -38,3 +39,6 @@ std::string __str__() {
 %extend ixpeTrack {__STR__()};
 
 %include "../include/ixpeClustering.h"
+
+%include "../include/ixpeMomentsAnalysis.h"
+%extend ixpeMomentsAnalysis {__STR__()};
