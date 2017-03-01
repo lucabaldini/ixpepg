@@ -21,6 +21,7 @@
 
 from ixpeswpy.Recon import *
 from ixpeswpy.IDF import ixpeBinaryFile
+from ixpeswpy.Utils import ixpeEnviron
 
 import os
 import numpy
@@ -38,8 +39,7 @@ def testCluster(event, threshold, minClusterHits):
 if __name__ == "__main__":
     """
     """
-    os.environ['IXPESWROOT']
-    filePath = os.path.join(os.environ['IXPESWROOT'], 'Recon', 'data',
+    filePath = os.path.join(ixpeEnviron.envVar('IXPESWROOT'), 'Recon', 'data',
                             'test_fe_500evts.mdat')
     f = ixpeBinaryFile(filePath)
     threshold = 5;
@@ -52,3 +52,4 @@ if __name__ == "__main__":
         print ("Found %d tracks" % (tracks.size()))
         for track in tracks:
             print (track)
+            
