@@ -26,17 +26,37 @@ with this program; if not, write to the Free Software Foundation Inc.,
 
 class ixpeMath {
   
-  public:
+ public:
   
-    static const double pi() {return 3.141592653589793;}
+  /// PI.
+  static double pi() {return 3.141592653589793;}
 
-    static double rad2deg(double rad) {return rad*180./pi();}
-    static double deg2rad(double deg) {return deg*pi()/180.;}
+  /// Convert radians to degrees.
+  static double radToDeg(double rad) {return rad * 57.29577951308232;}
 
-    static const double sqrt3() {return 1.7320508075688772;}
-    
-    // truncated sqrt(3) to match horizontal pitch 50 um with vertical 43.3 um
-    static const double xpolSqrt3() {return 1.7320;}
+  /// Convert degrees to radians.
+  static double degToRad(double deg) {return deg * 0.017453292519943295;}
+
+  /// Fold an angle (in radians) from [-pi, pi] to [-pi/2., pi/2.].
+  static double foldAngle(double rad)
+  {
+    if (rad < -pi() / 2.) {
+      return rad + pi();
+    }
+    if (rad > pi() / 2.) {
+      return rad - pi();
+    }
+    return rad;
+  }
+
+  /// Flip an angle making sure that the result is in [-pi, pi]
+  static double flipAngle(double rad) {return rad - std::copysign(pi(), rad);}
+
+  /// "Exact" sqrt(3).
+  static double sqrt3() {return 1.7320508075688772;}
+  
+  // Truncated sqrt(3) to match the XPOL 50/43.3 um horizontal/vertical pitch.
+  static double xpolSqrt3() {return 1.7320;}
 };
 
 
