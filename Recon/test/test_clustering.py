@@ -19,7 +19,7 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #***********************************************************************
 
-from ixpeswpy.Recon import *
+from ixpeswpy.Recon import dbScan, ixpeMomentsAnalysis
 from ixpeswpy.IDF import ixpeBinaryFile
 from ixpeswpy.Utils import ixpeEnviron
 
@@ -42,9 +42,9 @@ if __name__ == "__main__":
     filePath = os.path.join(ixpeEnviron.envVar('IXPESWROOT'), 'Recon', 'data',
                             'test_fe_500evts.mdat')
     f = ixpeBinaryFile(filePath)
-    threshold = 5;
+    threshold = 9;
     minClusterHits = 1;
-    nEventsToAnalyze = 10;
+    nEventsToAnalyze = 1;
     for i in range (0, nEventsToAnalyze):
         evt = f.next()
         print(evt)
@@ -52,4 +52,9 @@ if __name__ == "__main__":
         print ("Found %d tracks" % (tracks.size()))
         for track in tracks:
             print (track)
+            _hits = track.hits()
+            _barycenter = track.barycenter()
+            print (_barycenter)
+            #ixpeMomentsAnalysis(_hits, threshold, _barycenter.x(),
+            #                    _barycenter.y())
             

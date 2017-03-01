@@ -30,6 +30,7 @@ int main()
     std::cout << "Found " << tracks.size() << " tracks." << std::endl;
     for (const auto& track : tracks){
       std::cout << track << "\n";
+      std::cout << track.barycenter() << std::endl;
     }
     std::cout << std::endl;
   }

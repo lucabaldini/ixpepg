@@ -29,6 +29,7 @@ with this program; if not, write to the Free Software Foundation Inc.,
 #include <iomanip>
 
 #include "ixpeHit.h"
+#include "ixpeHexagonalCoordinates.h"
 
 
 class ixpeTrack
@@ -36,7 +37,7 @@ class ixpeTrack
   public:
     
     /// Default constructor.
-    ixpeTrack(){;}
+    ixpeTrack() : m_pulseHeight(0.) {;}
     
     /// Add a hit
     void addHit(ixpeHit hit);
@@ -44,6 +45,10 @@ class ixpeTrack
     /// Return a reference to the internal hits vector
     const std::vector<ixpeHit>& hits() const
       {return m_hits;}
+    
+    /// Pulse height
+    int pulseHeight() const
+      {return m_pulseHeight;}
     
     /// Define a custom iterator to facilitate loop over the hits
     /// (by delegating the native vector iterator)
@@ -61,6 +66,9 @@ class ixpeTrack
     int nOfHits() const
       {return static_cast<int>(m_hits.size());}
     
+    /// Barycenter
+    ixpeCartesianCoordinate barycenter() const;
+    
     /// Streamer function for overloading the << operator.
     std::ostream& fillStream(std::ostream& os) const;
 
@@ -74,6 +82,7 @@ class ixpeTrack
   private:
   
     std::vector<ixpeHit> m_hits;
+    int m_pulseHeight;
 };
 
 #endif //IXPETRACK_H

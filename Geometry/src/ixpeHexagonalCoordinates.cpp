@@ -34,11 +34,61 @@ ixpeCartesianCoordinate::ixpeCartesianCoordinate(double x, double y) :
 {}
 
 
+ixpeCartesianCoordinate& ixpeCartesianCoordinate::operator+= 
+  (const ixpeCartesianCoordinate &rhs)
+{
+  /// Check for self assignment
+  if (this == &rhs){
+    return *this;
+  } 
+  m_x += rhs.m_x;
+  m_y += rhs.m_y;
+  return *this;
+}  
+
+
+ixpeCartesianCoordinate& ixpeCartesianCoordinate::operator-=
+  (const ixpeCartesianCoordinate &rhs)
+{
+  /// Check for self assignment
+  if (this == &rhs){
+    return *this;
+  }
+  m_x -= rhs.m_x;
+  m_y -= rhs.m_y;
+  return *this;
+}
+
+
+ixpeCartesianCoordinate& ixpeCartesianCoordinate::operator*= (double scalar)
+{
+  m_x *= scalar;
+  m_y *= scalar;
+  return *this;
+}
+
+
 std::ostream& ixpeCartesianCoordinate::fillStream(std::ostream& os) const
 {
   os << "Cartesian(" << std::showpos << std::fixed << std::setprecision(6)
      << m_x << ", " << m_y << ")" << std::defaultfloat << std::noshowpos;
   return os;
+}
+
+
+const ixpeCartesianCoordinate ixpeCartesianCoordinate::operator+(
+  const ixpeCartesianCoordinate& rhs) const
+{
+	return ixpeCartesianCoordinate(m_x + rhs.x(),
+	                               m_y + rhs.y());
+}
+
+
+const ixpeCartesianCoordinate ixpeCartesianCoordinate::operator-(
+  const ixpeCartesianCoordinate& rhs) const
+{
+	return ixpeCartesianCoordinate(m_x - rhs.x(),
+	                               m_y - rhs.y());
 }
 
 
@@ -64,21 +114,17 @@ std::ostream& ixpeOffsetCoordinate::fillStream(std::ostream& os) const
 }
 
 
-const ixpeOffsetCoordinate operator+(const ixpeOffsetCoordinate& lhs,
-                                     const ixpeOffsetCoordinate& rhs)
+const ixpeOffsetCoordinate ixpeOffsetCoordinate::operator+(
+  const ixpeOffsetCoordinate& rhs) const
 {
-  // we can access member directly because this is a friend function
-	return ixpeOffsetCoordinate(lhs.m_column + rhs.m_column,
-	                            lhs.m_row + rhs.m_row);
+	return ixpeOffsetCoordinate(m_column + rhs.column(), m_row + rhs.row());
 }
 
 
-const ixpeOffsetCoordinate operator-(const ixpeOffsetCoordinate& lhs,
-                                     const ixpeOffsetCoordinate& rhs)
+const ixpeOffsetCoordinate ixpeOffsetCoordinate::operator-(
+  const ixpeOffsetCoordinate& rhs) const
 {
-  // we can access member directly because this is a friend function
-	return ixpeOffsetCoordinate(lhs.m_column - rhs.m_column,
-	                            lhs.m_row - rhs.m_row);
+	return ixpeOffsetCoordinate(m_column - rhs.column(), m_row - rhs.row());
 }
 
 
@@ -105,21 +151,17 @@ std::ostream& ixpeCubeCoordinate::fillStream(std::ostream& os) const
 }
 
 
-const ixpeCubeCoordinate operator+(const ixpeCubeCoordinate& lhs,
-                                   const ixpeCubeCoordinate& rhs)
+const ixpeCubeCoordinate ixpeCubeCoordinate::operator+(
+  const ixpeCubeCoordinate& rhs) const
 {
-	// we can access member directly because this is a friend function
-	return ixpeCubeCoordinate(lhs.m_q + rhs.m_q, lhs.m_r + rhs.m_r,
-	                          lhs.m_s + rhs.m_s);
+	return ixpeCubeCoordinate(m_q + rhs.q(), m_r + rhs.r(), m_s + rhs.s());
 }
 
 
-const ixpeCubeCoordinate operator-(const ixpeCubeCoordinate& lhs,
-                                   const ixpeCubeCoordinate& rhs)
+const ixpeCubeCoordinate ixpeCubeCoordinate::operator-(
+  const ixpeCubeCoordinate& rhs) const
 {
-	// we can access member directly because this is a friend function
-	return ixpeCubeCoordinate(lhs.m_q - rhs.m_q, lhs.m_r - rhs.m_r,
-	                          lhs.m_s - rhs.m_s);
+	return ixpeCubeCoordinate(m_q - rhs.q(), m_r - rhs.r(), m_s - rhs.s());
 }
 
 

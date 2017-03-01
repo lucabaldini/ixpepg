@@ -24,6 +24,7 @@ with this program; if not, write to the Free Software Foundation Inc.,
 void ixpeTrack::addHit(ixpeHit hit)
 {
   m_hits.push_back(hit);
+  m_pulseHeight += static_cast<int>(hit.count);
 }
 
 
@@ -43,3 +44,21 @@ std::ostream& ixpeTrack::fillStream(std::ostream& os) const
   }
   return os;
 }
+
+
+// Implementation to be discussed
+ixpeCartesianCoordinate ixpeTrack::barycenter() const
+{
+  if (m_pulseHeight < 0.){
+    throw -1; // TODO we need a proper exception here
+  }
+  double bx = 0;
+  double by = 0;
+  for (const auto &hit : m_hits){
+    bx += (hit.x * hit.count);
+    by += (hit.y * hit.count);
+  }
+  ixpeCartesianCoordinate baryCoords(bx, by);
+  baryCoords *= (1./m_pulseHeight);
+  return baryCoords;
+};

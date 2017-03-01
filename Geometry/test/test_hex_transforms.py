@@ -37,5 +37,12 @@ def test_offset_cube():
         assert tc == oc
 
 
+def test_cartesian():
+    """
+    """
+    coord = ixpeCartesianCoordinate(3., 5.)
+    print(coord)
+
 if __name__ == '__main__':
     test_offset_cube()
+    test_cartesian()

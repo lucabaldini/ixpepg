@@ -34,6 +34,14 @@ std::string __str__() {
  #include "../include/ixpeHexagonalGrid.h"
 %}
 
+
+%rename(__add__) ixpeCartesianCoordinates::operator+;
+%rename(__add__) ixpeOffsetCoordinates::operator+;
+%rename(__add__) ixpeCubicCoordinates::operator+;
+%rename(__sub__) ixpeCartesianCoordinates::operator-;
+%rename(__sub__) ixpeOffsetCoordinates::operator-;
+%rename(__sub__) ixpeCubicCoordinates::operator-;
+
 %include "../include/ixpeGeometryConstant.h"
 %extend ixpeGeometryConstant {__STR__()};
 
@@ -46,6 +54,5 @@ std::string __str__() {
 %extend ixpeCartesianCoordinate {__STR__()};
 %extend ixpeOffsetCoordinate {__STR__()};
 %extend ixpeCubeCoordinate {__STR__()};
-%extend ixpeAxialCoordinate {__STR__()};
 
 %include "../include/ixpeHexagonalGrid.h"

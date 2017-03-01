@@ -43,6 +43,9 @@ class ixpeCartesianCoordinate
   /// Constructor.
   ixpeCartesianCoordinate(double x, double y);
 
+  /// Empty constructor.
+  ixpeCartesianCoordinate() : ixpeCartesianCoordinate(0, 0) {;}
+
   /// Return the x coordinate.
   double x() const {return m_x;}
 
@@ -58,7 +61,19 @@ class ixpeCartesianCoordinate
   {
     return c.fillStream(os);
   }
+  
+  /// +=, -= operators
+  ixpeCartesianCoordinate& operator+= (const ixpeCartesianCoordinate &rhs);
+  ixpeCartesianCoordinate& operator-= (const ixpeCartesianCoordinate &rhs);
+  
+  /// *= operator (product by a scalar)
+  ixpeCartesianCoordinate& operator*= (double scalar);
 
+  /// Sum and difference
+  const ixpeCartesianCoordinate operator+(const ixpeCartesianCoordinate& rhs)
+    const;
+  const ixpeCartesianCoordinate operator-(const ixpeCartesianCoordinate& rhs)
+    const;
   
  private:
 
@@ -103,10 +118,8 @@ class ixpeOffsetCoordinate
   }
 
   /// Sum and difference
-  friend const ixpeOffsetCoordinate operator+(const ixpeOffsetCoordinate& lhs,
-                                             const ixpeOffsetCoordinate& rhs);
-  friend const ixpeOffsetCoordinate operator-(const ixpeOffsetCoordinate& lhs,
-                                             const ixpeOffsetCoordinate& rhs);
+  const ixpeOffsetCoordinate operator+(const ixpeOffsetCoordinate& rhs) const;
+  const ixpeOffsetCoordinate operator-(const ixpeOffsetCoordinate& rhs) const;
   
  private:
 
@@ -155,10 +168,8 @@ class ixpeCubeCoordinate
   }
 
   /// Sum and difference
-  friend const ixpeCubeCoordinate operator+(const ixpeCubeCoordinate &lhs,
-                                            const ixpeCubeCoordinate &rhs);
-  friend const ixpeCubeCoordinate operator-(const ixpeCubeCoordinate &lhs,
-                                            const ixpeCubeCoordinate &rhs);
+  const ixpeCubeCoordinate operator+(const ixpeCubeCoordinate &rhs) const;
+  const ixpeCubeCoordinate operator-(const ixpeCubeCoordinate &rhs) const;
 
  private:
 
@@ -181,11 +192,6 @@ ixpeCubeCoordinate eroffsetToCube(const ixpeOffsetCoordinate& c);
 
 ///
 ixpeCubeCoordinate cubeRound(double fq, double fr, double fs);
-
-
-/// Distance in cubic coordinate
-int cubicDistance (const ixpeCubeCoordinate& lhs,
-                   const ixpeCubeCoordinate& rhs);
 
 /// Neighbors of a given pixels in cubic coordinates
 std::vector<ixpeCubeCoordinate> neighborCoords(
