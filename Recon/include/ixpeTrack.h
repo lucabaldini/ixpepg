@@ -41,6 +41,10 @@ class ixpeTrack
     /// Add a hit
     void addHit(ixpeHit hit);
     
+    /// Return a reference to the internal hits vector
+    const std::vector<ixpeHit>& hits() const
+      {return m_hits;}
+    
     /// Define a custom iterator to facilitate loop over the hits
     /// (by delegating the native vector iterator)
     typedef std::vector<ixpeHit>::const_iterator const_iterator;
