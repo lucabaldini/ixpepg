@@ -42,9 +42,9 @@ if __name__ == "__main__":
     filePath = os.path.join(ixpeEnviron.envVar('IXPESWROOT'), 'Recon', 'data',
                             'test_fe_500evts.mdat')
     f = ixpeBinaryFile(filePath)
-    threshold = 9;
+    threshold = 7;
     minClusterHits = 1;
-    nEventsToAnalyze = 1;
+    nEventsToAnalyze = 2;
     for i in range (0, nEventsToAnalyze):
         evt = f.next()
         print(evt)
@@ -55,6 +55,10 @@ if __name__ == "__main__":
             _hits = track.hits()
             _barycenter = track.barycenter()
             print (_barycenter)
-            #ixpeMomentsAnalysis(_hits, threshold, _barycenter.x(),
-            #                    _barycenter.y())
+            print (track.pulseHeight())
+            mom = ixpeMomentsAnalysis(_hits, threshold, _barycenter.x(),
+                                      _barycenter.y())
+            print(mom)
+            print ("\n")
+        print ("\n") 
             
