@@ -20,3 +20,31 @@
 #***********************************************************************
 
 from ixpeswpy.Recon import *
+from ixpeswpy.IDF import ixpeBinaryFile
+
+import numpy
+
+import matplotlib.pyplot as plt
+
+
+def testCluster(event, threshold, minClusterHits):
+    """
+    """
+    tracks = dbScan(event, threshold, minClusterHits)
+    return tracks
+
+
+if __name__ == "__main__":
+    """
+    """
+    f = ixpeBinaryFile("/home/alberto/xpe/xpedaq/data/test_fe_500evts.mdat")
+    threshold = 5;
+    minClusterHits = 1;
+    nEventsToAnalyze = 10;
+    for i in range (0, nEventsToAnalyze):
+        evt = f.next()
+        print(evt)
+        tracks = testCluster(evt, threshold, minClusterHits)
+        print ("Found %d tracks" % (tracks.size()))
+        for track in tracks:
+            print (track)
