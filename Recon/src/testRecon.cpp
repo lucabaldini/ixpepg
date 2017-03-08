@@ -5,6 +5,7 @@
 #include "ixpeTrack.h"
 #include "ixpeClustering.h"
 #include "ixpeBinaryFile.h"
+#include "ixpeLogger.h"
 
 
 std::vector<ixpeTrack> testCluster(const ixpeEvent& event,
@@ -18,21 +19,22 @@ std::vector<ixpeTrack> testCluster(const ixpeEvent& event,
 
 int main()
 {
+  loggerInit("testLogger.log", DEBUG);
+  LOG_DEBUG << "debug message";
   ixpeBinaryFile f("/home/alberto/xpe/xpedaq/data/test_fe_500evts.mdat");
   const int threshold = 5;
   const int minClusterSize = 3;
   const int nEventsToAnalyze = 10;
   for (int i = 0; i < nEventsToAnalyze; ++i){
     ixpeEvent evt = f.next();
-    std::cout << "Test event: " << evt << std::endl;
+    //LOG_DEBUG << "Test event: " << evt << std::endl;
     std::vector<ixpeTrack> tracks = testCluster(evt, threshold,
                                                 minClusterSize);
-    std::cout << "Found " << tracks.size() << " tracks." << std::endl;
+    LOG_DEBUG << "Found " << tracks.size() << " tracks." << std::endl;
     for (const auto& track : tracks){
-      std::cout << track << "\n";
-      std::cout << track.barycenter() << std::endl;
+      LOG_DEBUG << track << "\n";
+      LOG_DEBUG << track.barycenter() << std::endl;
     }
-    std::cout << std::endl;
   }
   return 0;
 }
