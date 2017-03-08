@@ -164,13 +164,14 @@ std::vector<ixpeTrack> dbScan(const ixpeEvent& event, const int threshold,
     regionQuery(neighbors, pixelId, event, threshold); // Fill 'neighbors'
     if (neighbors.size() >= minClusterPoints){
       DEBUG(pixelId << ": " << "start building a cluster..." << std::endl);
-      // If the condition is satisfied, build the track around this pixel
+      /// If the condition is satisfied, build the track around this pixel
       ixpeTrack newTrack = expandCluster(pixelId, minClusterPoints, threshold,
                                event, neighbors, areVisited, areAssigned);
-      // Add the track to the list of found tracks
+      /// Add the track to the list of found tracks
       tracks.push_back(newTrack);
     }
   }
+  /// Sort by pulse height (std::greater makes the sort in decreasing order)
   std::sort(tracks.begin(), tracks.end(), std::greater<ixpeTrack>());
   return tracks;
 }
