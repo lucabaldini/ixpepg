@@ -8,6 +8,8 @@ SETUP_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export IXPESWROOT=$SETUP_DIR
 export IXPESWPYMODULES=$IXPESWROOT/ixpeswpy
 export PYTHONPATH=$IXPESWROOT:$PYTHONPATH
+export IXPEEXT=/home/alberto/xpe/ixpeExt
 
 echo "IXPESWROOT set to " $IXPESWROOT
+echo "IXPEEXT set to " $IXPEEXT
 

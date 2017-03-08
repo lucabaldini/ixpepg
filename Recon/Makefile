@@ -12,7 +12,8 @@ __check_defined = \
       $(error Undefined $1$(if $2, ($2))))
 
 #Here we check all the necessary environment variables
-$(call check_defined, IXPESWROOT,"Pleas set the IXPESWROOT variables to the ixpepg root diretcory")
+$(call check_defined, IXPESWROOT,"Please set the IXPESWROOT variables to the ixpepg root diretcory")
+$(call check_defined, IXPEEXT,"Please set the IXPEEXT variables")
 
 #The executable we want to create (name only)
 TARGET := testRecon
@@ -43,6 +44,13 @@ CC := g++
 #Compiler flags
 CPPFLAGS := -g -Wall -O2 --std=gnu++14
 
+#Linker flags
+L_FLAGS := -L $(IXPEEXT)/boost_1_63_0/stage/lib
+WL_FLAGS := -Wl,-rpath=$(IXPEEXT)/boost_1_63_0/stage/lib
+LIBS := -lboost_thread -lpthread -lboost_log -lboost_system -lboost_log_setup
+
+LINKER_FLAGS := $(L_FLAGS) $(WL_FLAGS) $(LIBS)
+
 #We are using gcc to auto generate dependency for us (i.e. find include directives in the .cpp and .h files).
 #See http://make.mad-scientist.net/papers/advanced-auto-dependency-generation/ for more info
 #These are the special GCC-specific flags which convince the compiler to generate the dependency file. Full descriptions can be found in the GCC manual section Options Controlling the Preprocessor:
@@ -59,7 +67,7 @@ POSTCOMPILE = mv -f $(DEPDIR)/$*.Td $(DEPDIR)/$*.d
 SOURCES := 
 
 #Include path list (each module will add to this list too)
-INCLUDE_FLAGS :=
+INCLUDE_FLAGS := -I $(IXPEEXT)/boost_1_63_0
 
 #Make the modules path absolute
 MODULES := $(addprefix $(IXPESWROOT)/,$(MODULES))
@@ -102,7 +110,7 @@ cleaner: clean
 
 #Link (the dependencies after the pipeline are order dependency)
 $(TARGETDIR)/$(TARGET): $(OBJECTS) | $(TARGETDIR)
-	$(CC) $(DEPFLAGS) $(CPPFLAGS) $^ -o $(TARGETDIR)/$(TARGET)
+	$(CC) $(CPPFLAGS) $(WL_FLAGS) $^ -o $(TARGETDIR)/$(TARGET) $(L_FLAGS) $(LIBS)
 
 #Rule for building object files from .cpp files
 $(BUILDDIR)/%.o: %.$(SRCEXT) $(DEPDIR)/%.$(DEPEXT) | $(BUILDDIR) $(DEPDIR)
