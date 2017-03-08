@@ -78,6 +78,12 @@ class ixpeTrack
       return tr.fillStream(os);
     }
     
+    bool operator < (const ixpeTrack& rhs) const
+      {return (m_pulseHeight < rhs.m_pulseHeight);}
+    
+    bool operator > (const ixpeTrack& rhs) const
+      {return (m_pulseHeight > rhs.m_pulseHeight);}
+    
     
   private:
   

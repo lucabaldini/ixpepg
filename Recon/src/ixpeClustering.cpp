@@ -29,6 +29,9 @@ with this program; if not, write to the Free Software Foundation Inc.,
 #  define DEBUG(x) do {} while (0)
 #endif
 
+#include <functional>
+#include <algorithm>
+
 #include "ixpeClustering.h"
 #include "ixpeHit.h"
 #include "ixpeGeometrySvc.h"
@@ -168,5 +171,6 @@ std::vector<ixpeTrack> dbScan(const ixpeEvent& event, const int threshold,
       tracks.push_back(newTrack);
     }
   }
+  std::sort(tracks.begin(), tracks.end(), std::greater<ixpeTrack>());
   return tracks;
 }

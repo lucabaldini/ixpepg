@@ -33,7 +33,8 @@ int main()
     LOG_DEBUG << "Found " << tracks.size() << " tracks." << std::endl;
     for (const auto& track : tracks){
       LOG_DEBUG << track << "\n";
-      LOG_DEBUG << track.barycenter() << std::endl;
+      LOG_DEBUG << track.pulseHeight() << "\n";
+      //LOG_DEBUG << track.barycenter() << std::endl;
     }
   }
   return 0;
